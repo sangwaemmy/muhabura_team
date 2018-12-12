@@ -1346,7 +1346,7 @@
             function list_vendor($min) {
                 $database = new dbconnection();
                 $db = $database->openConnection();
-                $sql = "select vendor.vendor_id,  party.name,  party.email,  party.website,  party.phone, vendor.primary_contact from vendor 
+                $sql = "select vendor.vendor_id,  party.name,  party.tin,  party.website,  party.phone, vendor.primary_contact from vendor 
                     join party on vendor.party = party.party_id 
                     where party.party_type='supplier'";
                 $stmt = $db->prepare($sql);
@@ -1356,7 +1356,7 @@
                 <thead> <td> S/N </td>
                 <td> name </td>
                 <td> email </td>
-                <td> website </td>
+                <td> tin </td>
                 <td> phone </td>
                 <td> primary_contact </td>
                 <?php if (isset($_SESSION['shall_delete'])) { ?>  <td> Delete </td>
@@ -1369,7 +1369,7 @@
                     <td>        <?php echo $row['vendor_id']; ?> </td>
                     <td>        <?php echo $row['name']; ?> </td>
                     <td>        <?php echo $row['email']; ?> </td>
-                    <td>        <?php echo $row['website']; ?> </td>
+                    <td>        <?php echo $row['tin']; ?> </td>
                     <td>        <?php echo $row['phone']; ?> </td>
                     <td>        <?php echo $row['primary_contact']; ?> </td>
                     <?php if (isset($_SESSION['shall_delete'])) { ?> 
@@ -8171,7 +8171,7 @@
                             <?php echo $row['vat_calculation_id']; ?>
                         </td>
                         <td class="purid_saleid_id_cols vat_calculation " title="vat_calculation" >
-                            <?php echo $this->_e($row['purid_saleid']); ?>
+                            <?php echo $this->_e($row['reference_no']); ?>
                         </td>
                         <td>
                             <?php echo $this->_e(number_format($row['vat_amount'])); ?>
