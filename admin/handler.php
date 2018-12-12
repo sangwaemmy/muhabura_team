@@ -121,8 +121,6 @@
         $id = $obj->get_party_id_id_by_party_id_name($_POST['cbo_party_id']);
         return $id;
     }
-    
-    
     if (isset($_POST['cbo_contact'])) {
         require_once '../web_db/multi_values.php';
         $obj = new multi_values();
@@ -1612,21 +1610,8 @@
         unset($_SESSION['table_to_update']);
     }
     if (filter_has_var(INPUT_POST, 'journal_update')) {
-        require_once '../web_db/updates.php';
-        $obj = new updates();
-        
-        $accountid = filter_input(INPUT_POST,'accountid');
-        $dr_cr = filter_input(INPUT_POST,'dr_cr');
-        $amount= filter_input(INPUT_POST,'amount');
-        $memo= filter_input(INPUT_POST,'memo');
-        $obj->update_journal_entry_line($accountid, $dr_cr, $amount, $memo);
-    }
-    
-    if(filter_has_value(INPUT_POST,'reference_no'))
-    {
-        $obj = new other_fx();
-        $ref = filter_input(INPUT_POST,'ref');
-        $reference_no = $obj->get_reference_no($ref);
-        return $reference_no;
-        
+        require_once '../web_db/other_fx.php';
+        $up = new other_fx();
+        $journal_update = filter_input(INPUT_POST, 'journal_update');
+        echo $up->get_transaction_by_id($journal_update);
     }
