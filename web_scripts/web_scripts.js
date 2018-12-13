@@ -5,6 +5,9 @@ var this_measurement = null;
 
 var clicked_table_id = 0;
 var id_delete = 0;
+var table_to_delete = '';
+var journal_trans = 0;//This var is used in journal_entry_line in the botttom of the page
+
 $(document).ready(function () {
     try {
         //<editor-fold defaultstate="collapsed" desc="---defaults---">
@@ -75,7 +78,7 @@ $(document).ready(function () {
         get_position_depart_id_combo();
         get_fisc_year_id_combo();
         get_item_id_combo();
-//        measurement_del_udpate();
+        measurement_del_udpate();
         get_measurement_id_combo();
 
         get_req_type_id_combo();
@@ -115,6 +118,7 @@ $(document).ready(function () {
         continue_to_pourchaseinvoice();
         table2_finance();
         hide_Y_N_dialog();
+        journal_entry_line_del_udpate();
         project_expectations_del_udpate();
         //Other deletes (From p)
         p_budget_prep_del_udpate();
@@ -133,12 +137,7 @@ $(document).ready(function () {
         p_items_expenses_del_udpate();
         p_measurement_del_udpate();
         account_del_udpate();
-        vat_del_udpate();
-        p_user_del_udpate();
-        p_staff_position_del_udpate();
-        bank_del_udpate();
-        p_roles_del_udpate();
-        cheque_del_udpate();
+
 
     } catch (err) {
         alert(err.message);
@@ -379,28 +378,6 @@ function get_item_category_id_combo() {
         alert(err.message);
     }
 }
-
-//update from vat ...
- 
-function vat_del_udpate(){
-$('.vat_calculation_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromvat.. 
- $('.vat_calculation_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
-    });
-}
-
 function get_sales_accid_id_combo() {
     try {
         $('.cbo_sales_accid').change(function () {
@@ -1055,8 +1032,8 @@ function get_quotationid_id_combo() {
 }
 function account_del_udpate() {
     $('.account_update_link').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
+        var table_to_update = $(this).closest('td').siblings('.account').attr('title');
+        var id_update = $(this).attr('value').trim();
         $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
         }).complete(function () {
             window.location.replace('redirect.php');
@@ -1117,41 +1094,26 @@ function ledger_settings_del_udpate() {
     });
 }//update from bank ...
 
-function p_user_del_udpate() {
-    $('.user_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_project.. 
-    $('.user_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}
-
-
 function bank_del_udpate() {
     $('.bank_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+        var table_to_update = $(this).closest('td').siblings('.bank').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
 
         }).complete(function () {
             window.location.replace('redirect.php');
         });
     });//delete frombank.. 
     $('.bank_delete_link').unbind('click').click(function () {
-        var table_to_delete = $(this).data('table');
-        var id_delete = $(this).data('table_id');
+        var table_to_delete = $(this).closest('td').siblings('.bank').attr('title');
+        var id_delete = $(this).attr('value').trim();
+
         $(this).closest('tr').slideUp(400);
-        show_Y_N_dialog();
+        $.post('../Admin/handler.php', {id_delete: id_delete, table_to_delete: table_to_delete}, function (data) {
+        }).complete(function () {
+
+        });
+
     });
 }//update from account_class ...
 
@@ -1246,6 +1208,31 @@ function sales_receit_header_del_udpate() {
 
     });
 }//update from measurement ...
+
+function measurement_del_udpate() {
+    $('.measurement_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.measurement').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete frommeasurement.. 
+    $('.measurement_delete_link').unbind('click').click(function () {
+        var table_to_delete = $(this).closest('td').siblings('.measurement').attr('title');
+        var id_delete = $(this).attr('value').trim();
+
+        $(this).closest('tr').slideUp(400);
+        $.post('../Admin/handler.php', {id_delete: id_delete, table_to_delete: table_to_delete}, function (data) {
+        }).complete(function () {
+
+        });
+
+    });
+}//update from journal_entry_line ...
+
+
 function tax_del_udpate() {
     $('.tax_update_link').unbind('click').click(function () {
         var table_to_update = $(this).closest('td').siblings('.tax').attr('title');
@@ -3334,42 +3321,90 @@ function table2_finance() {
     $('.income_table2 tr td:nth-child(2)').addClass('second_td');
 
 }
-function show_Y_N_dialog() {
-    $('.y_n_dialog ,.any_full_bg').fadeIn(300, function () {
-        $('.dialog_yes_no').delay(100).show("drop", {direction: "up"}, 130);
-    });
 
+function scroll_on_page() {//This is to check if the page sho=uld be scrolled back to the top. The first implementation is used on Journal entry
+    setTimeout(function () {
+
+//        $('html, body').animate({scrollTop: 7}, 500);
+
+    }, 200);
+    scroll_on_page();
 }
-function hide_Y_N_dialog() {//here the user will be confirming to delete the record
+function journal_entry_line_del_udpate() {
+    $('.journal_entry_line_update_link').click(function () {
+        try {
+            $('.load_in_center').fadeIn(100);
+            table_to_update = 'journal_transactions';
+            table_to_delete = 'journal_transactions';
+            current_del_btn = $(this);
+            id_update = $(this).data('table_id');
+            id_delete = $(this).data('table_id');
+            journal_trans = id_update;
+            var journal_update = id_update;
 
-    $('#user_yes_btn,  .yes_dlg_btn').click(function () {
-        $('.y_n_dialog').fadeOut(300);
-        $.post('../admin/handler_update_details.php', {id_delete: id_delete, table_to_delete: table_to_delete}, function (data) {
+            $('.load_in_center').fadeIn(100);
+            $('.cbo_account_arr').val('');
+            $('.j_debit_txt').val('');
+            $('.j_credit_txt').val('');
+            $('.txt_memo').val('');
+            $('.cbo_tax_arr').val('');
+            $('.link_to_project').val('');
+            $('.cbo_account_arr').val('');
+            var c = 0;
+            var final = '', final2 = '';
+            $.post('../admin/handler.php', {journal_update: journal_update, id_update: id_update, table_to_update: table_to_update}, function (data) {
+                final = $.parseJSON(data.trim());
+                $.each(final, function (i, option) {
+                    $('.upd_refill:eq(' + c + ')').val(option.account.trim());
+                    $('.upd_refill:eq(' + c + ')').append('<span>' + option.id_update + '</span>');
+                    var dr_cr = (option.dr_cr);
+                    if (dr_cr == 'Debit') {
+                        $('.j_debit_txt:eq(' + c + ')').val(option.amount);
+                    } else {
+                        $('.j_credit_txt:eq(' + c + ')').val(option.amount);
+                    }
+                    $('.txt_memo:eq(' + c + ')').val(option.memo);
+                    $('.cbo_tax_arr:eq(' + c + ')').val(option.tax);
+                    $('.link_to_project:eq(' + c + ')').val(option.activity);
+                    c += 1;
+                });
+            }).complete(function () {
+                $('.load_in_center').fadeOut(100);
+                $('html, body').animate({scrollTop: 10}, 500);
+                $('.cancel_btn').slideDown(100);
+                $('.new_data_box').slideDown(50);
+                $('.delete_btn').slideDown(50);
+                $('#txt_shall_expand_toUpdate').val(table_to_delete);
+            });
 
-        }).complete(function () {
+            //Get the tax that was saved witht the transaction
+            var get_tax_by_journal = journal_trans;  //This is the journal_transactrion id 
+            $.post('../admin/handler.php', {get_tax_by_journal: get_tax_by_journal}, function (data) {
+                final = $.parseJSON(data.trim());
+                $.each(final, function (i, option) {
+                    $('.cbo_tax_upd:eq(' + i + ')').val(option.tax_type);
+                });
+            });
 
-            current_del_btn.closest('tr').slideUp(400);
-//            window.location.reload();
-        });
-    });
-    $('#no_btn, .no_dlg_btn, .no_btn').click(function () {
-        $('.dialog_yes_no').hide('slide', {direction: 'up'}, 200, function () {
-            $('.y_n_dialog').delay(100).fadeOut(200);
-        });
-    });
+            //Get the client taht was saved with the transaction
+            var get_party_by_journal = journal_trans;
+            final = '';
 
-}
-function project_expectations_del_udpate() {
-    $('.project_expectations_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+            $.post('../admin/handler.php', {get_party_by_journal: get_party_by_journal}, function (data) {
+                final = $.parseJSON(data.trim());
+                $.each(final, function (i, option) {
+                    $('.cbo_party_upd:eq(' + i + ')').val(option.party_id);
+                    console.log('The returned' + data);
+                });
+            }).complete(function () {
+                $('.load_in_center').fadeOut(100);
+            });
 
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromproject_expectations.. 
-    $('.project_expectations_delete_link').unbind('click').click(function () {
+        } catch (err) {
+            alert(err.message);
+        }
+    });//delete fromjournal_entry_line.. 
+    $('.journal_entry_line_delete_link').click(function () {
         table_to_delete = $(this).data('table');
         id_delete = $(this).data('id_delete');
         current_del_btn = $(this);
@@ -3377,447 +3412,6 @@ function project_expectations_del_udpate() {
 
     });
 }
-
-function p_staff_position_del_udpate() {
-    $('.staff_positions_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_budget_items.. 
-    $('.staff_positions_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}
-
-//Other deletes
-
-function p_budget_del_udpate() {
-    $('.p_budget_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_budget.. 
-    $('.p_budget_delete_link').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_budget_items ...
-
-function p_budget_items_del_udpate() {
-    $('.p_budget_items_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_budget_items.. 
-    $('.p_budget_items_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_items_expenses ...
-
-function p_items_expenses_del_udpate() {
-    $('.p_items_expenses_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_items_expenses.. 
-    $('.p_items_expenses_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_items_type ...
-
-function p_items_type_del_udpate() {
-    $('.p_items_type_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_items_type.. 
-    $('.p_items_type_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_chart_account ...
-
-function p_chart_account_del_udpate() {
-    $('.p_chart_account_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_chart_account.. 
-    $('.p_chart_account_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_department ...
-
-function p_department_del_udpate() {
-    $('.p_department_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_department.. 
-    $('.p_department_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_unit ...
-
-function p_unit_del_udpate() {
-    $('.p_unit_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_unit.. 
-    $('.p_unit_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_staff ...
-
-function p_staff_del_udpate() {
-    $('.p_staff_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_staff.. 
-    $('.p_staff_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_fund_request ...
-
-function p_fund_request_del_udpate() {
-    $('.p_fund_request_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_fund_request.. 
-    $('.p_fund_request_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_approvals ...
-
-function p_approvals_del_udpate() {
-    $('.p_approvals_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_approvals.. 
-    $('.p_approvals_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_user_approvals ...
-
-function p_project_del_udpate() {
-    $('.p_project_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_project.. 
-    $('.p_project_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_approvals_type ...
-
-function p_approvals_type_del_udpate() {
-    $('.p_approvals_type_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_approvals_type.. 
-    $('.p_approvals_type_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_other_expenses ...
-
-//update from p_type_project ...
-
-function p_type_project_del_udpate() {
-    $('.p_type_project_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_type_project.. 
-    $('.p_type_project_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_activity ...
-
-function p_activity_del_udpate() {
-    $('.p_activity_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_activity.. 
-    $('.p_activity_delete_link').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_field ...
-
-function p_field_del_udpate() {
-    $('.p_field_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_field.. 
-    $('.p_field_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_province ...
-
-function p_province_del_udpate() {
-    $('.p_province_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_province.. 
-    $('.p_province_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_district ...
-
-function p_district_del_udpate() {
-    $('.p_district_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_district.. 
-    $('.p_district_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_sector ...
-
-function p_sector_del_udpate() {
-    $('.p_sector_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_sector.. 
-    $('.p_sector_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_fiscal_year ...
-
-function p_fiscal_year_del_udpate() {
-    $('.p_fiscal_year_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_fiscal_year.. 
-    $('.p_fiscal_year_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_users ...
-
-function p_users_del_udpate() {
-    $('.p_users_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_users.. 
-    $('.p_users_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_roles ...
-
-function p_roles_del_udpate() {
-    $('.role_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_roles.. 
-    $('.role_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_measurement ...
-
-function p_measurement_del_udpate() {
-    $('.measurement_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).table('table_id');
-        $.post('../admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromp_measurement.. 
-    $('.measurement_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-        id_delete = $(this).data('id_delete');
-        current_del_btn = $(this);
-        show_Y_N_dialog();
-
-    });
-}//update from p_request ...
 
 function p_request_del_udpate() {
     $('.p_request_update_link').click(function () {
@@ -3840,19 +3434,20 @@ function p_request_del_udpate() {
         $.post('../admin/handler.php', {id_update: id_update, items_by_request: items_by_request, table_to_update: table_to_update}, function (data) {
             var final = $.parseJSON(data.trim());
             var c = 0;
-            alert(data);
+
             $.each(final, function (i, option) {
                 $('.cbo_items:eq(' + c + ')').val(option.id);
-                $('.cbo_items:eq(' + c + ')').append('<span>' + option.req + '</span>');//This is the span that takes the request. each combo box takes the request by which the update will  be done
+                $('.cbo_items:eq(' + c + ')').append('<span>' + option.req + '</span>');//This is the span that takes the request id. each combo box takes the request by which the update will  be done
                 $('.bgt_txt_msrment:eq(' + c + ')').val(option.item);
                 $('.bgt_txt_msrment:eq(' + c + ')').val(option.msrmnt);
                 $('.bgt_txt_unitC:eq(' + c + ')').val(option.uc);
                 $('.item_txt_qty:eq(' + c + ')').val(option.qty);
                 $('.item_txt_amnt:eq(' + c + ')').val(option.amount);
                 $('.cbo_field').val(option.field);
-//                $('.cbo_acti_by_proj').append($('<option/>').attr("value", option.id).text(option.name));
+                $('.cbo_acti_by_proj').append($('<option/>').attr("value", option.id).text(option.name));
                 c += 1;
             });
+
             $('.load_in_center').fadeOut(100, function () {
                 $('.new_data_box').slideDown(300);
                 $('.cancel_btn').slideDown()();
@@ -3860,8 +3455,9 @@ function p_request_del_udpate() {
             });
 
         }).complete(function () {
-//            window.location.replace('redirect.php');
+
         });
+
         $('.cancel_btn').slideDown()();
     });//delete fromp_request.. 
     $('.p_request_delete_link').click(function () {
@@ -3874,10 +3470,514 @@ function p_request_del_udpate() {
     });
 }//update from p_request_type ...
 
+ 
+//update from tax ...
+function show_Y_N_dialog() {
+    $('.y_n_dialog , .any_full_bg').fadeIn(300, function () {
+        $('.dialog_yes_no').delay(100).show("drop", {direction: "up"}, 130);
+    });
+
+}
+function hide_Y_N_dialog() {//here the user will be confirming to delete the record
+    $('#user_yes_btn,  .yes_dlg_btn').click(function () {
+        $('.y_n_dialog').fadeOut(300);
+        $.post('../admin/handler_update_details.php', {id_delete: id_delete, table_to_delete: table_to_delete}, function (data) {
+
+        }).complete(function () {
+            unset_update_session();
+            current_del_btn.closest('tr').slideUp(400);
+            window.location.reload();
+        });
+    });
+    $('#no_btn, .no_dlg_btn, .no_btn').click(function () {
+        $('.dialog_yes_no').hide('slide', {direction: 'up'}, 200, function () {
+            $('.y_n_dialog').delay(100).fadeOut(200);
+        });
+    });
+
+}
+function project_expectations_del_udpate() {
+    $('.project_expectations_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.project_expectations').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromproject_expectations.. 
+    $('.project_expectations_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}
+
+//Other deletes
+
+function p_budget_del_udpate() {
+    $('.p_budget_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_budget').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_budget.. 
+    $('.p_budget_delete_link').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_budget_items ...
+
+function p_budget_items_del_udpate() {
+    $('.p_budget_items_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_budget_items').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_budget_items.. 
+    $('.p_budget_items_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_items_expenses ...
+
+function p_items_expenses_del_udpate() {
+    $('.p_items_expenses_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_items_expenses').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_items_expenses.. 
+    $('.p_items_expenses_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_items_type ...
+
+function p_items_type_del_udpate() {
+    $('.p_items_type_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_items_type').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_items_type.. 
+    $('.p_items_type_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_chart_account ...
+
+function p_chart_account_del_udpate() {
+    $('.p_chart_account_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_chart_account').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_chart_account.. 
+    $('.p_chart_account_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_department ...
+
+function p_department_del_udpate() {
+    $('.p_department_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_department').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_department.. 
+    $('.p_department_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_unit ...
+
+function p_unit_del_udpate() {
+    $('.p_unit_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_unit').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_unit.. 
+    $('.p_unit_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_staff ...
+
+function p_staff_del_udpate() {
+    $('.p_staff_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_staff').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_staff.. 
+    $('.p_staff_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_fund_request ...
+
+function p_fund_request_del_udpate() {
+    $('.p_fund_request_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_fund_request').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_fund_request.. 
+    $('.p_fund_request_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_approvals ...
+
+function p_approvals_del_udpate() {
+    $('.p_approvals_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_approvals').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_approvals.. 
+    $('.p_approvals_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_user_approvals ...
+
+function p_user_approvals_del_udpate() {
+    $('.p_user_approvals_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_user_approvals').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_user_approvals.. 
+    $('.p_user_approvals_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_project ...
+
+function p_project_del_udpate() {
+    $('.p_project_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_project').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_project.. 
+    $('.p_project_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_approvals_type ...
+
+function p_approvals_type_del_udpate() {
+    $('.p_approvals_type_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_approvals_type').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_approvals_type.. 
+    $('.p_approvals_type_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_other_expenses ...
+
+function p_other_expenses_del_udpate() {
+    $('.p_other_expenses_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_other_expenses').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_other_expenses.. 
+    $('.p_other_expenses_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_type_project ...
+
+function p_type_project_del_udpate() {
+    $('.p_type_project_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_type_project').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_type_project.. 
+    $('.p_type_project_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_activity ...
+
+function p_activity_del_udpate() {
+    $('.p_activity_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_activity').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_activity.. 
+    $('.p_activity_delete_link').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_field ...
+
+function p_field_del_udpate() {
+    $('.p_field_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_field').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_field.. 
+    $('.p_field_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_province ...
+
+function p_province_del_udpate() {
+    $('.p_province_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_province').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_province.. 
+    $('.p_province_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_district ...
+
+function p_district_del_udpate() {
+    $('.p_district_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_district').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_district.. 
+    $('.p_district_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_sector ...
+
+function p_sector_del_udpate() {
+    $('.p_sector_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_sector').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_sector.. 
+    $('.p_sector_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_fiscal_year ...
+
+function p_fiscal_year_del_udpate() {
+    $('.p_fiscal_year_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_fiscal_year').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_fiscal_year.. 
+    $('.p_fiscal_year_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_users ...
+
+function p_users_del_udpate() {
+    $('.p_users_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_users').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_users.. 
+    $('.p_users_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_roles ...
+
+function p_roles_del_udpate() {
+    $('.p_roles_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_roles').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_roles.. 
+    $('.p_roles_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_measurement ...
+
+function p_measurement_del_udpate() {
+    $('.p_measurement_update_link').unbind('click').click(function () {
+        var table_to_update = $(this).closest('td').siblings('.p_measurement').attr('title');
+        var id_update = $(this).attr('value').trim();
+        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
+
+        }).complete(function () {
+            window.location.replace('redirect.php');
+        });
+    });//delete fromp_measurement.. 
+    $('.p_measurement_delete_link').unbind('click').click(function () {
+        table_to_delete = $(this).data('table');
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
+
+    });
+}//update from p_request ...
+
+
 function p_request_type_del_udpate() {
     $('.p_request_type_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
+        var table_to_update = $(this).closest('td').siblings('.p_request_type').attr('title');
+        var id_update = $(this).attr('value').trim();
         $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
 
         }).complete(function () {
@@ -3895,8 +3995,8 @@ function p_request_type_del_udpate() {
 
 function p_qty_request_del_udpate() {
     $('.p_qty_request_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
+        var table_to_update = $(this).closest('td').siblings('.p_qty_request').attr('title');
+        var id_update = $(this).attr('value').trim();
         $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
 
         }).complete(function () {
@@ -3914,8 +4014,8 @@ function p_qty_request_del_udpate() {
 
 function p_Currency_del_udpate() {
     $('.p_Currency_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
+        var table_to_update = $(this).closest('td').siblings('.p_Currency').attr('title');
+        var id_update = $(this).attr('value').trim();
         $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
 
         }).complete(function () {
@@ -3934,7 +4034,7 @@ function p_Currency_del_udpate() {
 function p_budget_prep_del_udpate() {
     $('.p_budget_prep_update_link').click(function () {
         var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
+        var id_update = $(this).data('id_delete');
         $.post('../admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
 
         }).complete(function () {
@@ -3952,8 +4052,8 @@ function p_budget_prep_del_udpate() {
 
 function p_bdgt_prep_expenses_del_udpate() {
     $('.p_bdgt_prep_expenses_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
+        var table_to_update = $(this).closest('td').siblings('.p_bdgt_prep_expenses').attr('title');
+        var id_update = $(this).attr('value').trim();
         $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
 
         }).complete(function () {
@@ -3974,8 +4074,8 @@ function p_bdgt_prep_expenses_del_udpate() {
 
 function project_expectations_del_udpate() {
     $('.project_expectations_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
+        var table_to_update = $(this).closest('td').siblings('.project_expectations').attr('title');
+        var id_update = $(this).attr('value').trim();
         $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
 
         }).complete(function () {
@@ -3993,8 +4093,8 @@ function project_expectations_del_udpate() {
 
 function p_fund_usage_del_udpate() {
     $('.p_fund_usage_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
+        var table_to_update = $(this).closest('td').siblings('.p_fund_usage').attr('title');
+        var id_update = $(this).attr('value').trim();
         $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
 
         }).complete(function () {
@@ -4010,220 +4110,8 @@ function p_fund_usage_del_udpate() {
     });
 }
 
-
-//0000000000000000000000000
-function payment_voucher_del_udpate(){
-$('.payment_voucher_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete frompayment_voucher.. 
- $('.payment_voucher_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
-    });
-}//update from delete_update_permission ...
- 
-function delete_update_permission_del_udpate(){
-$('.delete_update_permission_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromdelete_update_permission.. 
- $('.delete_update_permission_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
-    });
-}//update from stock_taking ...
- 
-function stock_taking_del_udpate(){
-$('.stock_taking_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromstock_taking.. 
- $('.stock_taking_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
-    });
-}//update from cheque ...
- 
-function cheque_del_udpate(){
-$('.cheque_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromcheque.. 
- $('.cheque_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
-    });
-}//update from tax_calculations ...
- 
-function tax_calculations_del_udpate(){
-$('.tax_calculations_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromtax_calculations.. 
- $('.tax_calculations_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
-    });
-}//update from tax_percentage ...
- 
-function tax_percentage_del_udpate(){
-$('.tax_percentage_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromtax_percentage.. 
- $('.tax_percentage_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
-    });
-}
-//update from vat_calculation ...
- 
-function vat_calculation_del_udpate(){
-$('.vat_calculation_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromvat_calculation.. 
- $('.vat_calculation_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
-    });
-}//update from stock_into_main ...
- 
-function stock_into_main_del_udpate(){
-$('.stock_into_main_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromstock_into_main.. 
- $('.stock_into_main_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
-    });
-}//update from tax_type ...
- 
-function tax_type_del_udpate(){
-$('.tax_type_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromtax_type.. 
- $('.tax_type_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
-    });
-}//update from reconcilition ...
- 
-function reconcilition_del_udpate(){
-$('.reconcilition_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromreconcilition.. 
- $('.reconcilition_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
-    });
-}//update from request_change ...
- 
-function request_change_del_udpate(){
-$('.request_change_update_link').unbind('click').click(function () {
-        var table_to_update = $(this).data('table');
-        var id_update = $(this).data('table_id');
-        $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
-
-        }).complete(function () {
-            window.location.replace('redirect.php');
-        });
-    });//delete fromrequest_change.. 
- $('.request_change_delete_link').unbind('click').click(function () {
-        table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
-    });
-}//update from journal_transactions ...
- 
-function journal_transactions_del_udpate(){
-$('.journal_transactions_update_link').unbind('click').click(function () {
+function journal_transactions_del_udpate() {
+    $('.journal_transactions_update_link').unbind('click').click(function () {
         var table_to_update = $(this).data('table');
         var id_update = $(this).data('table_id');
         $.post('../Admin/handler.php', {id_update: id_update, table_to_update: table_to_update}, function (data) {
@@ -4232,11 +4120,69 @@ $('.journal_transactions_update_link').unbind('click').click(function () {
             window.location.replace('redirect.php');
         });
     });//delete fromjournal_transactions.. 
- $('.journal_transactions_delete_link').unbind('click').click(function () {
+    $('.journal_transactions_delete_link').unbind('click').click(function () {
         table_to_delete = $(this).data('table');
-          id_delete = $(this).data('id_delete');
-          current_del_btn = $(this);
-          show_Y_N_dialog();        
-
+        id_delete = $(this).data('id_delete');
+        current_del_btn = $(this);
+        show_Y_N_dialog();
     });
-}       
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
