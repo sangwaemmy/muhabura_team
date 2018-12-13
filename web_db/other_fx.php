@@ -95,7 +95,7 @@
                     . " join account_type on account.acc_type=account_type.account_type_id "
                     . " where account.is_contra_acc='yes' order by account.name  asc";
             ?>
-            <select name="acc_name_com[]"  class="textbox cbo_account_arr upd_refill">
+            <select name="acc_name_com[]"  class="textbox cbo_account_arr">
                 <option </option>
                 <option value="new_item">-- Add New --</option>
                 <?php
@@ -113,7 +113,7 @@
             $db = $database->openConnection();
             $sql = "select party_id, name, party_type as type from party group by party_id";
             ?>            
-            <select name="acc_party_in_combo[]"  class="textbox cbo_account_arr cbo_party_upd">
+            <select name="acc_party_in_combo[]"  class="textbox cbo_account_arr">
                 <option </option>
                 <!--<option value="new_item">-- Add New --</option>-->
                 <?php
@@ -131,7 +131,7 @@
             $db = $database->openConnection();
             $sql = "select  tax_type.tax_type_id,  tax_type.name,  tax_type.percentage from tax_type ";
             ?>            
-            <select name="acc_tax_in_combo[]" style="width: 100px;"  class="textbox cbo_tax_arr cbo_tax_upd">
+            <select name="acc_tax_in_combo[]" style="width: 100px;"  class="textbox cbo_tax_arr">
                 <option </option>
                 <!--<option value="new_item">-- Add New --</option>-->
                 <?php
@@ -2930,7 +2930,7 @@
                                     $db = $database->openConnection();
                                     $sql = "select p_type_project.p_type_project_id,   p_type_project.name from p_type_project";
                                     ?>
-                                    <select name="type" class="textbox cbo_type_project fly_new_p_type_project cbo_onfly_p_type_project_change"><option></option> 
+                                    <select name="type" class="textbox cbo_type_project fly_new_p_type_project cbo_onfly_p_type_project_change"><option></option><option value="fly_new_p_type_project">-- Add new --</option> 
                                         <?php
                                         foreach ($db->query($sql) as $row) {
                                             echo "<option value=" . $row['p_type_project_id'] . ">" . $row['name'] . " </option>";
@@ -3191,12 +3191,10 @@
                                                 </td>
 
                                                 <?php if (isset($_SESSION['shall_delete'])) { ?>   <td>
-                                                        <a href="#" class="tax_percentage_delete_link" style="color: #000080;" data-id_delete="tax_percentage_id"  data-table="
-                                                           <?php echo $row['tax_percentage_id']; ?>">Delete</a>
+                                                        <a href="#" class="tax_percentage_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['tax_percentage_id']; ?>"  data-table="tax_percentage">Delete</a>
                                                     </td>
                                                     <td>
-                                                        <a href="#" class="tax_percentage_update_link" style="color: #000080;" value="
-                                                           <?php echo $row['tax_percentage_id']; ?>">Update</a>
+                                                        <a href="#" class="tax_percentage_update_link" style="color: #000080;" data-table_id="<?php echo $row['tax_percentage_id']; ?>" data-table="tax_percentage">Update</a>
                                                     </td><?php } ?></tr>
                                             <?php
                                             $pages += 1;
@@ -3376,12 +3374,10 @@
 
 
                                                 <td>
-                                                    <a href="#" class="tax_type_delete_link" style="color: #000080;" data-id_delete="tax_type_id"  data-table="
-                                                       <?php echo $row['tax_type_id']; ?>">Delete</a>
+                                                    <a href="#" class="tax_type_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['tax_type_id']; ?>"  data-table="tax_type">Delete</a>
                                                 </td>
                                                 <td>
-                                                    <a href="#" class="tax_type_update_link" style="color: #000080;" value="
-                                                       <?php echo $row['tax_type_id']; ?>">Update</a>
+                                                    <a href="#" class="tax_type_update_link" style="color: #000080;" data-table_id="<?php echo $row['tax_type_id']; ?>" data-table="tax_type">Update</a>
                                                 </td></tr>
                                             <?php
                                             $pages += 1;
@@ -3479,12 +3475,13 @@
                                 function list_reconcilition($min) {
                                     $database = new dbconnection();
                                     $db = $database->openConnection();
-                                    $sql = "select * from reconcilition";
+                                    $sql = "select * from reconciliation";
                                     $stmt = $db->prepare($sql);
                                     $stmt->execute(array(":min" => $min));
                                     ?>
                                     <table class="dataList_table">
                                         <thead><tr>
+
                                                 <td> reconcilition </td>
                                                 <td> Entry Date </td><td> User </td><td> Transaction </td><td> Amount due </td><td> Amount done </td><td> Remaining amount </td><td> comments </td>
                                                 <td>Delete</td><td>Update</td></tr></thead>
@@ -3495,13 +3492,13 @@
                                             ?><tr> 
 
                                                 <td>
-                                                    <?php echo $row['reconcilition_id']; ?>
+                                                    <?php echo $row['reconciliation_id']; ?>
                                                 </td>
                                                 <td class="entry_date_id_cols reconcilition " title="reconcilition" >
                                                     <?php echo $this->_e($row['entry_date']); ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $this->_e($row['User']); ?>
+                                                    <?php echo $this->_e($row['user']); ?>
                                                 </td>
                                                 <td>
                                                     <?php echo $this->_e($row['transaction']); ?>
@@ -3521,12 +3518,10 @@
 
 
                                                 <td>
-                                                    <a href="#" class="reconcilition_delete_link" style="color: #000080;" data-id_delete="reconcilition_id"  data-table="
-                                                       <?php echo $row['reconcilition_id']; ?>">Delete</a>
+                                                    <a href="#" class="reconcilition_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['reconcilition_id']; ?>"  data-table="reconcilition">Delete</a>
                                                 </td>
                                                 <td>
-                                                    <a href="#" class="reconcilition_update_link" style="color: #000080;" value="
-                                                       <?php echo $row['reconcilition_id']; ?>">Update</a>
+                                                    <a href="#" class="reconcilition_update_link" style="color: #000080;" data-table_id="<?php echo $row['reconcilition_id']; ?>" data-table="reconcilition">Update</a>
                                                 </td></tr>
                                             <?php
                                             $pages += 1;
@@ -3901,8 +3896,7 @@
                                         ?></table>
                                         <?php
                                     }
-
-//chosen individual field
+                                    
                                     function get_chosen_project_expectations_name($id) {
 
                                         $db = new dbconnection();
@@ -4107,7 +4101,7 @@
                                                         <?php if (isset($_SESSION['shall_delete'])) { ?> <td><?php
                                                                 if ($row2['status'] != 2 || $row2['status'] == 1) {// if the request has been finished the user cannot delete it. the request finishes and get represented by 2 on the status   
                                                                     ?> 
-                                                                    <a href="#" class="p_request_delete_link" style="color: #000080;" data-table_id="<?php echo $row2['main_req']; ?>"  data-table="main_request">Delete</a>
+                                                                    <a href="#" class="p_request_delete_link" style="color: #000080;" data-id_delete="<?php echo $row2['main_req']; ?>"  data-table="main_request">Delete</a>
                                                                     <?php
                                                                 } else {
                                                                     echo 'No action';
@@ -4116,8 +4110,7 @@
                                                                 <?php
                                                                 if ($row2['status'] != 2 || $row2['status'] == 1) {// if the request has been finished the user cannot delete it. the request finishes and get represented by 2 on the status   
                                                                     ?>   
-                                                                    <a href="#" class="p_request_update_link" style="color: #000080;" value="
-                                                                       <?php echo $row['p_request_id']; ?>">Update</a>
+                                                                    <a href="#" class="p_request_update_link" style="color: #000080;" data-table_id="<?php echo $row['p_request_id']; ?>" data-table="main_request">Update</a>
                                                                        <?php
                                                                    } else {
                                                                        echo 'No action';
@@ -4340,6 +4333,48 @@
                             }
                         }
 
+                        function get_transaction_by_id($req) {//This is the transaction done from journal and they items have same id (jourmal entry header)
+                            try {
+                                $database = new dbconnection();
+                                $db = $database->openconnection();
+                                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                $sql = "select   journal_entry_line.journal_entry_line_id,
+                                            party.name as party, 
+                                            journal_entry_line.category as category, 
+                                            journal_entry_line.accountid as accountid,
+                                            journal_entry_line.dr_cr as dr_cr,
+                                            journal_entry_line.amount as amount , 
+                                            journal_entry_line.memo as memo,
+                                            journal_entry_line.journal_entry_header as journal_entry_header ,
+                                            journal_entry_line.entry_date as entry_date,
+                                            account.name as accountid 
+                                            from journal_entry_line  
+                                            join account on account.account_id=journal_entry_line.accountid 
+                                            join journal_entry_header on journal_entry_line.journal_entry_header= journal_entry_header.journal_entry_header_id
+                                            join party on party.party_id=journal_entry_header.party 
+                                            join journal_transactions on journal_entry_line.transaction=journal_transactions.journal_transactions_id ";
+                                $stmt = $db->prepare($sql);
+                                $stmt->execute(array(":p_request_id" => $req));
+                                $data = array();
+                                while ($row = $stmt->fetch()) {
+                                    $data[] = array(
+                                        'journal_entry_line_id' => $row['journal_entry_line_id'],
+                                        'dr_cr' => $row['dr_cr'],
+                                        'memo' => $row['memo'],
+                                        'amount' => $row['amount'],
+                                        'msrmnt' => $row['measurement'],
+                                        'item' => $row['item_name'],
+                                        'req' => $row['p_request_id'],
+                                        'field' => $row['field']
+                                    );
+                                }
+                                return json_encode($data);
+                            } catch (PDOException $e) {
+                                echo $e;
+                            }
+                        }
+
+                        
                         function get_account_details_update($req) {//This is the transaction done from journal and they items have same id (jourmal entry header)
                             try {
                                 $database = new dbconnection();
@@ -4380,95 +4415,8 @@
                             }
                         }
 
-                        function get_transaction_by_id($journalid) {//This is the transaction done from journal and they items have same id (jourmal entry header)
-                            try {
-                                $database = new dbconnection();
-                                $db = $database->openconnection();
-                                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                $sql = "    select   journal_entry_line.journal_entry_line_id,
-                                            party.name as party, 
-                                            journal_entry_line.category as category, 
-                                            journal_entry_line.accountid as accountid,
-                                            journal_entry_line.dr_cr as dr_cr,
-                                            journal_entry_line.amount as amount , 
-                                            journal_entry_line.memo as memo,
-                                            journal_entry_line.journal_entry_header as journal_entry_header ,
-                                            journal_entry_line.entry_date as entry_date,
-                                            journal_entry_line.journal_entry_header,
-                                            journal_entry_line.activity,
-                                            journal_entry_line.accountid as accountid ,
-                                            journal_entry_line.transaction
-                                            from journal_entry_line  
-                                            join account on account.account_id=journal_entry_line.accountid 
-                                            join journal_entry_header on journal_entry_line.journal_entry_header= journal_entry_header.journal_entry_header_id
-                                            join party on party.party_id=journal_entry_header.party 
-                                            join journal_transactions on journal_entry_line.transaction=journal_transactions.journal_transactions_id 
-                                            where journal_entry_line.transaction=:id";
-                                $stmt = $db->prepare($sql);
-                                $stmt->execute(array(":id" => $journalid));
-                                $data = array();
-                                while ($row = $stmt->fetch()) {
-                                    $data[] = array(
-                                        'journal_entry_line_id' => $row['journal_entry_line_id'],
-                                        'dr_cr' => $row['dr_cr'],
-                                        'memo' => $row['memo'],
-                                        'amount' => $row['amount'],
-                                        'activity' => $row['activity'],
-                                        'account' => $row['accountid'],
-                                        'journal_entry_header' => $row['journal_entry_header'],
-                                        'transaction' => $row['transaction']
-                                    );
-                                }
-                                return json_encode($data);
-                            } catch (PDOException $e) {
-                                echo $e;
-                            }
-                        }
-
-                        function get_acc_class($id) {
-                            $db = new dbconnection();
-                            $sql = "select acc_class,  from account where account.account_id !=:acc";
-                            $stmt = $db->openConnection()->prepare($sql);
-                            $stmt->bindValue(':acc', $id);
-                            $stmt->execute();
-                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                            $field = $row['acc_class'];
-                            return $field;
-                        }
-
-                        function get_reference_no($id) {
-                            $db = new dbconnection();
-                            $sql = "select journal_entry_line.journal_entry_line_id,vat_calculation.reference_no, vat_calculation.tax_type  from journal_entry_line 
-                                            join journal_transactions on journal_transactions.journal_transactions_id=journal_entry_line.transaction
-                                            join vat_calculation on vat_calculation.reference_no=journal_entry_line.journal_entry_line_id
-                                            where journal_entry_line.transaction=:journal";
-                            $stmt = $db->openConnection()->prepare($sql);
-                            $stmt->execute(array(':journal' => $id));
-                            $data = array();
-                            while ($row = $stmt->fetch()) {
-                                $data[] = array(
-                                    'tax_type' => $row['tax_type']);
-                            }
-                            return json_encode($data);
-                        }
-
-                        function get_party_by_journal($party) {
-                            $db = new dbconnection();
-                            $sql = "select journal_entry_line.journal_entry_line_id,journal_entry_line.transaction, party.party_id from journal_entry_line 
-                                    join journal_entry_header on journal_entry_line.journal_entry_header=journal_entry_header.journal_entry_header_id
-                                    join party on party.party_id=journal_entry_header.party
-                                    where  journal_entry_line.transaction=:journal";
-                            $stmt = $db->openConnection()->prepare($sql);
-                            $stmt->execute(array(':journal' => $party));
-                            $data = array();
-                            while ($row = $stmt->fetch()) {
-                                $data[] = array(
-                                    'party_id' => $row['party_id']
-                                );
-                            }
-                            return json_encode($data);
-                        }
-
+                        
+                        
                         function get_pdf_excel($pdf, $excel) {
                             ?>
                             <div class="parts no_paddin_shade_no_Border eighty_centered no_bg">
@@ -4504,15 +4452,6 @@
                             <?php
                         }
 
-                        function get_load_in_center() {
-                            ?>
-                            <div class="parts abs_child margin_free load_in_center off">
-                                <div class="parts abs_child no_paddin_shade_no_Border data_details_pane_load">
-                                </div>
-                            </div>    
-                            <?php
-                        }
-
                         function get_selected_pagination($session) {
                             ?>
                             <script>
@@ -4533,5 +4472,26 @@
                             echo htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
                         }
 
+                        function get_reference_no($id) {
+                                        $db = new dbconnection();
+                                        $sql = "select reference_no from vat_calculation where pu_sale=:journal";
+                                        $stmt = $db->openConnection()->prepare($sql);
+                                        $stmt->bindValue(':journal', $id);
+                                        $stmt->execute();
+                                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        $field = $row['reference_no'];
+                                        return $field;
+                                    }
+                                    
+                                    function get_acc_class ($id) {
+                                        $db = new dbconnection();
+                                        $sql = "select acc_class,  from account where account.account_id !=:acc";
+                                        $stmt = $db->openConnection()->prepare($sql);
+                                        $stmt->bindValue(':acc', $id);
+                                        $stmt->execute();
+                                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        $field = $row['acc_class'];
+                                        return $field;
+                                    }
                     }
                     
