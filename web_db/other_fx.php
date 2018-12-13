@@ -2930,7 +2930,7 @@
                                     $db = $database->openConnection();
                                     $sql = "select p_type_project.p_type_project_id,   p_type_project.name from p_type_project";
                                     ?>
-                                    <select name="type" class="textbox cbo_type_project fly_new_p_type_project cbo_onfly_p_type_project_change"><option></option> 
+                                    <select name="type" class="textbox cbo_type_project fly_new_p_type_project cbo_onfly_p_type_project_change"><option></option><option value="fly_new_p_type_project">-- Add new --</option> 
                                         <?php
                                         foreach ($db->query($sql) as $row) {
                                             echo "<option value=" . $row['p_type_project_id'] . ">" . $row['name'] . " </option>";
@@ -3902,8 +3902,7 @@
                                         ?></table>
                                         <?php
                                     }
-
-//chosen individual field
+                                    
                                     function get_chosen_project_expectations_name($id) {
 
                                         $db = new dbconnection();
@@ -4341,12 +4340,12 @@
                             }
                         }
 
-                        function get_transaction_by_id($journalid) {//This is the transaction done from journal and they items have same id (jourmal entry header)
+                        function get_transaction_by_id($req) {//This is the transaction done from journal and they items have same id (jourmal entry header)
                             try {
                                 $database = new dbconnection();
                                 $db = $database->openconnection();
                                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                $sql = "    select   journal_entry_line.journal_entry_line_id,
+                                $sql = "select   journal_entry_line.journal_entry_line_id,
                                             party.name as party, 
                                             journal_entry_line.category as category, 
                                             journal_entry_line.accountid as accountid,
@@ -4355,17 +4354,14 @@
                                             journal_entry_line.memo as memo,
                                             journal_entry_line.journal_entry_header as journal_entry_header ,
                                             journal_entry_line.entry_date as entry_date,
-                                            journal_entry_line.journal_entry_header,
-                                            journal_entry_line.activity,
-                                            journal_entry_line.accountid as accountid 
+                                            account.name as accountid 
                                             from journal_entry_line  
                                             join account on account.account_id=journal_entry_line.accountid 
                                             join journal_entry_header on journal_entry_line.journal_entry_header= journal_entry_header.journal_entry_header_id
                                             join party on party.party_id=journal_entry_header.party 
-                                            join journal_transactions on journal_entry_line.transaction=journal_transactions.journal_transactions_id 
-                                            where journal_entry_line.journal_entry_line_id=:id";
+                                            join journal_transactions on journal_entry_line.transaction=journal_transactions.journal_transactions_id ";
                                 $stmt = $db->prepare($sql);
-                                $stmt->execute(array(":id" => $journalid));
+                                $stmt->execute(array(":p_request_id" => $req));
                                 $data = array();
                                 while ($row = $stmt->fetch()) {
                                     $data[] = array(
@@ -4373,10 +4369,10 @@
                                         'dr_cr' => $row['dr_cr'],
                                         'memo' => $row['memo'],
                                         'amount' => $row['amount'],
-                                        'activity' => $row['activity'],
-                                        'account' => $row['accountid'],
-                                        'journal_entry_header' => $row['journal_entry_header'],
-                                        'account' => $row['account']
+                                        'msrmnt' => $row['measurement'],
+                                        'item' => $row['item_name'],
+                                        'req' => $row['p_request_id'],
+                                        'field' => $row['field']
                                     );
                                 }
                                 return json_encode($data);
@@ -4385,6 +4381,49 @@
                             }
                         }
 
+                        
+                        function get_account_details_update($req) {//This is the transaction done from journal and they items have same id (jourmal entry header)
+                            try {
+                                $database = new dbconnection();
+                                $db = $database->openconnection();
+                                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                $sql = "select   account.account_id,
+                                            account.acc_type as acc_type, 
+                                            account.acc_class as acc_class,
+                                            account.name as name,
+                                            account.DrCrSide as DrCrSide , 
+                                            account.acc_code as acc_code,
+                                            account.acc_desc as acc_desc ,
+                                            account.is_cash as is_cash,
+                                            account.is_contra_acc as is_contra_acc,
+                                            account.has_parent as has_parent,
+                                            account.book_section as book_section";
+                                $stmt = $db->prepare($sql);
+                                $stmt->execute(array(":p_request_id" => $req));
+                                $data = array();
+                                while ($row = $stmt->fetch()) {
+                                    $data[] = array(
+                                        'account_id' => $row['account_id'],
+                                        'acc_type' => $row['acc_type'],
+                                        'acc_class' => $row['acc_class'],
+                                        'name' => $row['name'],
+                                        'DrCrSide' => $row['DrCrSide'],
+                                        'acc_code' => $row['acc_code'],
+                                        'acc_desc' => $row['acc_desc'],
+                                        'is_cash' => $row['is_cash'],
+                                        'contra_acc' => $row['contra_acc'],
+                                        'has_parent' => $row['has_parent'],
+                                        'book_section' => $row['book_section']
+                                    );
+                                }
+                                return json_encode($data);
+                            } catch (PDOException $e) {
+                                echo $e;
+                            }
+                        }
+
+                        
+                        
                         function get_pdf_excel($pdf, $excel) {
                             ?>
                             <div class="parts no_paddin_shade_no_Border eighty_centered no_bg">
@@ -4440,5 +4479,26 @@
                             echo htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
                         }
 
+                        function get_reference_no($id) {
+                                        $db = new dbconnection();
+                                        $sql = "select reference_no from vat_calculation where pu_sale=:journal";
+                                        $stmt = $db->openConnection()->prepare($sql);
+                                        $stmt->bindValue(':journal', $id);
+                                        $stmt->execute();
+                                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        $field = $row['reference_no'];
+                                        return $field;
+                                    }
+                                    
+                                    function get_acc_class ($id) {
+                                        $db = new dbconnection();
+                                        $sql = "select acc_class,  from account where account.account_id !=:acc";
+                                        $stmt = $db->openConnection()->prepare($sql);
+                                        $stmt->bindValue(':acc', $id);
+                                        $stmt->execute();
+                                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        $field = $row['acc_class'];
+                                        return $field;
+                                    }
                     }
                     

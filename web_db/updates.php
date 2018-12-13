@@ -3,12 +3,11 @@
     require_once 'connection.php';
 
     class updates {
-
-        function update_account($acc_type, $acc_class, $account_id) {
+        function update_account($acc_type, $acc_class, $account_id,$name,$DrCrSide,$acc_desc,$is_cash,$is_contra_acc,$book_section) {
             $database = new dbconnection();
             $db = $database->openconnection();
-            $stmt = $db->prepare("UPDATE account set acc_type= ?, acc_class= ? WHERE account_id=?");
-            $stmt->execute(array($acc_type, $acc_class, $account_id));
+            $stmt = $db->prepare("UPDATE account set acc_type= ?, acc_class= ?, name=?, DrCrSide=?,acc_desc=?, is_cash=?, is_contra_acc=?,book_section=? WHERE account.account_id=?");
+            $stmt->execute(array($acc_type, $acc_class, $account_id,$name,$DrCrSide,$acc_desc,$is_cash,$is_contra_acc,$book_section));
         }
 
         function update_account_type($account_type_id) {

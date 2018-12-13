@@ -954,7 +954,7 @@
                 $database = new dbconnection();
                 $db = $database->openConnection();
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stm = $db->prepare("insert into p_Currency values(:p_Currency_id, :code,  :description)");
+                $stm = $db->prepare("insert into p_currency values(:p_Currency_id, :code,  :description)");
                 $stm->execute(array(':p_Currency_id' => 0, ':code' => $code, ':description' => $description
                 ));
             } catch (PDOException $e) {
