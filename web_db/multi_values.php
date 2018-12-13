@@ -380,7 +380,11 @@
                                 . " where account.account_id=:id "
                                 . " and journal_entry_line.entry_date>=:min 
                                   and journal_entry_line.entry_date<=:max "
-                                . "group by journal_entry_line.journal_entry_line_id ";
+                                . "group by journal_entry_line.journal_entry_line_id "
+                                . " "
+                                . " "
+                                . "  "
+                                . "  ";
                         $stmt = $db->prepare($sql);
                         $stmt->execute(array(":id" => $row_1['account_id'], ":min" => $min, ":max" => $max));
                         $pages = 1;
@@ -517,12 +521,10 @@
 
                         <?php if (isset($_SESSION['shall_delete'])) { ?>
                             <td>
-                                <a href="#" class="bank_delete_link" style="color: #000080;" value="
-                                   <?php echo $row['bank_id']; ?>">Delete</a>
+                                <a href="#" class="bank_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['bank_id']; ?>" data-table="bank">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="bank_update_link" style="color: #000080;" value="
-                                   <?php echo $row['bank_id']; ?>">Update</a>
+                                <a href="#" class="bank_update_link" style="color: #000080;" data-id="<?php echo $row['bank_id']; ?>" data-table="bank">Update</a>
                             </td><?php } ?></tr>
                     <?php
                     $pages += 1;
@@ -1342,7 +1344,7 @@
             function list_vendor($min) {
                 $database = new dbconnection();
                 $db = $database->openConnection();
-                $sql = "select vendor.vendor_id,  party.name,  party.email,  party.tin,  party.phone, vendor.primary_contact from vendor 
+                $sql = "select vendor.vendor_id,  party.name,  party.tin,  party.website,  party.phone, vendor.primary_contact from vendor 
                     join party on vendor.party = party.party_id 
                     where party.party_type='supplier'";
                 $stmt = $db->prepare($sql);
@@ -1352,7 +1354,7 @@
                 <thead> <td> S/N </td>
                 <td> name </td>
                 <td> email </td>
-                <td> TIN </td>
+                <td> tin </td>
                 <td> phone </td>
                 <td> primary_contact </td>
                 <?php if (isset($_SESSION['shall_delete'])) { ?>  <td> Delete </td>
@@ -5475,7 +5477,8 @@
                             <!--<td>  <a href="#" class="data_details_link" style="color: #000080;" data-who="DF"  data-table="purchase_order"    data-id="<?php echo $row['main_request_id']; ?>">View</a>   </td>-->  
                             <?php if (isset($_SESSION['shall_delete'])) { ?>
                                 <td>
-                                    <a href="#" class="purchase_order_line_delete_link delete_link" style="color: #000080;" data-id_delete="<?php echo $row['purchase_order_line_id']; ?>"  data-table="purchase_order_line">Delete</a>
+                                    <a href="#" class="purchase_order_line_delete_link" style="color: #000080;" data-id_delete="purchase_order_line_id"  data-table="
+                                       <?php echo $row['purchase_order_line_id']; ?>">Delete</a>
                                 </td>
                                 <td>
                                     <a href="#" class="purchase_order_line_update_link" style="color: #000080;" value="
@@ -7271,8 +7274,7 @@
 
 
                         <td>
-                            <a href="#" class="staff_positions_delete_link" style="color: #000080;" data-id_delete="staff_positions_id"  data-table="
-                               <?php echo $row['staff_positions_id']; ?>">Delete</a>
+                            <a href="#" class="staff_positions_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['staff_positions_id']; ?>"  data-table="staff_positions_id">Delete</a>
                         </td>
                         <td>
                             <a href="#" class="staff_positions_update_link" style="color: #000080;" value="
@@ -8166,7 +8168,7 @@
                             <?php echo $row['vat_calculation_id']; ?>
                         </td>
                         <td class="purid_saleid_id_cols vat_calculation " title="vat_calculation" >
-                            <?php echo $this->_e($row['purid_saleid']); ?>
+                            <?php echo $this->_e($row['reference_no']); ?>
                         </td>
                         <td>
                             <?php echo $this->_e(number_format($row['vat_amount'])); ?>
@@ -8183,8 +8185,7 @@
 
                         <?php if (isset($_SESSION['shall_delete'])) { ?>
                             <td>
-                                <a href="#" class="vat_calculation_delete_link" style="color: #000080;" data-id_delete="vat_calculation_id"  data-table="
-                                   <?php echo $row['vat_calculation_id']; ?>">Delete</a>
+                                <a href="#" class="vat_calculation_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['vat_calculation_id']; ?>"  data-table="vat_calculation_id">Delete</a>
                             </td>
                             <td>
                                 <a href="#" class="vat_calculation_update_link" style="color: #000080;" value="
@@ -8810,7 +8811,7 @@
                 <?php
                 $pages = 1;
                 while ($row = $stmt->fetch()) {
-                    ?><tr class="" data-table_id="<?php echo $row['p_budget_items_id']; ?>"     data-bind="p_budget_items"> 
+                    ?><tr class="clickable_row" data-table_id="<?php echo $row['p_budget_items_id']; ?>"     data-bind="p_budget_items"> 
                         <td>
                             <?php echo $row['p_budget_items_id']; ?>
                         </td>
@@ -10020,9 +10021,8 @@
                         <td>
                             <?php echo $this->_e($row['description']); ?>
                         </td>
-                        <td>
-                            <a href="#" class="p_fund_request_delete_link" style="color: #000080;" data-id_delete="p_fund_request_id"  data-table="
-                               <?php echo $row['p_fund_request_id']; ?>">Delete</a>
+                        <td>                   
+                            <a href="#" class="p_fund_request_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['p_fund_request_id']; ?>"  data-table="p_fund_request">Delete</a>
                         </td>
                         <td>
                             <a href="#" class="p_fund_request_update_link" style="color: #000080;" value="
@@ -11391,7 +11391,7 @@
                 <?php
                 $pages = 1;
                 while ($row = $stmt->fetch()) {
-                    ?><tr class="clickable_row" data-table_id="<?php echo $row['p_activity_id']; ?>"     data-bind="p_activity"> 
+                    ?><tr class="" data-table_id="<?php echo $row['p_activity_id']; ?>"     data-bind="p_activity"> 
                         <td>
                             <?php echo $row['p_activity_id']; ?>
                         </td>
@@ -11414,11 +11414,10 @@
                             <?php echo $this->_e($row['Firstname'] . ' ' . $row['Lastname']); ?>
                         </td>
                         <?php if (isset($_SESSION['shall_delete'])) { ?>    <td>
-                                <a href="#" class="p_activity_delete_link" style="color: #000080;" data-id_delete="p_activity_id"  data-table="
-                                   <?php echo $row['p_activity_id']; ?>">Delete</a>
+                                <a href="#" class="p_activity_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['p_activity_id']; ?>"  data-table="p_activity_id">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="p_activity_update_link" style="color: #000080;" value="<?php echo $row['p_activity_id']; ?>">Update</a>
+                                <a href="#" class="p_activity_update_link" style="color: #000080;" data-table="p_activity"  data-table_id="<?php echo $row['p_activity_id']; ?>">Update</a>
                             </td><?php } ?>
                     </tr>
                     <?php
@@ -12083,8 +12082,7 @@
 
                         <?php if (isset($_SESSION['shall_delete'])) { ?>
                             <td>
-                                <a href="#" class="user_delete_link" style="color: #000080;" data-id_delete="user_id"  data-table="
-                                   <?php echo $row['user_id']; ?>">Delete</a>
+                                <a href="#" class="user_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['user_id']; ?>"  data-table="user_id">Delete</a>
                             </td>
                             <td>
                                 <a href="#" class="user_update_link" style="color: #000080;" value="
@@ -12687,7 +12685,7 @@
             function list_p_Currency($min) {
                 $database = new dbconnection();
                 $db = $database->openConnection();
-                $sql = "select * from p_Currency";
+                $sql = "select * from p_currency";
                 $stmt = $db->prepare($sql);
                 $stmt->execute(array(":min" => $min));
                 ?>
@@ -12715,12 +12713,10 @@
 
 
                         <td>
-                            <a href="#" class="p_Currency_delete_link" style="color: #000080;" data-id_delete="p_Currency_id"  data-table="
-                               <?php echo $row['p_Currency_id']; ?>">Delete</a>
+                            <a href="#" class="p_Currency_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['p_Currency_id']; ?>"  data-table="p_currency">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="p_Currency_update_link" style="color: #000080;" value="
-                               <?php echo $row['p_Currency_id']; ?>">Update</a>
+                            <a href="#" class="p_Currency_update_link" style="color: #000080;" data-table_id="<?php echo $row['p_Currency_id']; ?>" data-table="p_currency">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
