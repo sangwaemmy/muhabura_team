@@ -48,7 +48,7 @@
                                     <a href="#" class="account_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['account_id']; ?>"  data-table="account">Delete</a>
                                 </td>
                                 <td class="update_cols">
-                                    <a href="#" class="account_update_link" style="color: #000080;" value="<?php echo $row['account_id']; ?>">Update</a>
+                                    <a href="#" class="account_update_link" style="color: #000080;" data-table_id="<?php echo $row['account_id']; ?>" data-table="account">Update</a>
                                 </td>
                             <?php } ?></tr>
                         <?php
@@ -97,7 +97,7 @@
                                 <a href="#" class="account_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['account_id']; ?>"  data-table="account">Delete</a>
                             </td>
                             <td class="update_cols">
-                                <a href="#" class="account_update_link" style="color: #000080;" value="<?php echo $row['account_id']; ?>">Update</a>
+                                <a href="#" class="account_update_link" style="color: #000080;" data-table_id="<?php echo $row['account_id']; ?>" data-table="account">Update</a>
                             </td>
                         <?php } ?>
                     </tr>
@@ -216,12 +216,10 @@
 
 
                         <td>
-                            <a href="#" class="account_type_delete_link" style="color: #000080;" value="
-                               <?php echo $row['account_type_id']; ?>">Delete</a>
+                            <a href="#" class="account_type_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['account_type_id']; ?>" data-table="account_type">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="account_type_update_link" style="color: #000080;" value="
-                               <?php echo $row['account_type_id']; ?>">Update</a>
+                            <a href="#" class="account_type_update_link" style="color: #000080;" data-table_id="<?php echo $row['account_type_id']; ?>" data-table="account_type">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -326,12 +324,10 @@
 
 
                         <td>
-                            <a href="#" class="ledger_settings_delete_link" style="color: #000080;" value="
-                               <?php echo $row['ledger_settings_id']; ?>">Delete</a>
+                            <a href="#" class="ledger_settings_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['ledger_settings_id']; ?>" data-table="ledger_settings">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="ledger_settings_update_link" style="color: #000080;" value="
-                               <?php echo $row['ledger_settings_id']; ?>">Update</a>
+                            <a href="#" class="ledger_settings_update_link" style="color: #000080;" data-table_id="<?php echo $row['ledger_settings_id']; ?>" data-table="ledger_settings">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -397,7 +393,7 @@
                                 <td class="off">  <?php echo $this->_e($row['journal_entry_header']); ?>  </td>
                                 <td>  <?php echo $this->_e($row['entry_date']); ?>  </td>
                                 <td class="off">  <a href="#" class="journal_entry_line_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['journal_entry_line_id']; ?>"  data-table="journal_entry_line">Delete</a>  </td>
-                                <td class="off">  <a href="#" class="journal_entry_line_update_link" style="color: #000080;" value="<?php echo $row['journal_entry_line_id']; ?>">Update</a>  </td>   
+                                <td class="off">  <a href="#" class="journal_entry_line_update_link" style="color: #000080;" data-table_id="<?php echo $row['journal_entry_line_id']; ?>" data-table="journal_entry_line">Update</a>  </td>   
                                 <td class="accountid_id_cols journal_entry_line " title="journal_entry_line" ><?php echo $this->_e($row['accountid']); ?>  </td>
                                 <td class="text_right">
                                     <?php
@@ -524,7 +520,7 @@
                                 <a href="#" class="bank_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['bank_id']; ?>" data-table="bank">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="bank_update_link" style="color: #000080;" data-id="<?php echo $row['bank_id']; ?>" data-table="bank">Update</a>
+                                <a href="#" class="bank_update_link" style="color: #000080;" data-table_id="<?php echo $row['bank_id']; ?>" data-table="bank">Update</a>
                             </td><?php } ?></tr>
                     <?php
                     $pages += 1;
@@ -606,12 +602,10 @@
 
 
                         <td>
-                            <a href="#" class="account_class_delete_link" style="color: #000080;" value="
-                               <?php echo $row['account_class_id']; ?>">Delete</a>
+                            <a href="#" class="account_class_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['account_class_id']; ?>" data-table="account_class">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="account_class_update_link" style="color: #000080;" value="
-                               <?php echo $row['account_class_id']; ?>">Update</a>
+                            <a href="#" class="account_class_update_link" style="color: #000080;" data-tableid="<?php echo $row['account_class_id']; ?>" data-table="account_class">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -748,8 +742,7 @@
                                <?php echo $row['main_contra_account_id']; ?>">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="main_contra_account_update_link" style="color: #000080;" value="
-                               <?php echo $row['main_contra_account_id']; ?>">Update</a>
+                            <a href="#" class="main_contra_account_update_link" style="color: #000080;" data-id_delete="<?php echo $row['main_contra_account_id']; ?>" data-table="main_contra_account">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -886,12 +879,10 @@
 
                         <?php if (isset($_SESSION['shall_delete'])) { ?>
                             <td>
-                                <a href="#" class="sales_receit_header_delete_link" style="color: #000080;" data-id_delete="sales_receit_header_id"  data-table="
-                                   <?php echo $row['sales_receit_header_id']; ?>">Delete</a>
+                                <a href="#" class="sales_receit_header_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['sales_receit_header_id']; ?>"  data-table="sales_receit_header">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="sales_receit_header_update_link" style="color: #000080;" value="
-                                   <?php echo $row['sales_receit_header_id']; ?>">Update</a>
+                                <a href="#" class="sales_receit_header_update_link" style="color: #000080;" data-table_id="<?php echo $row['sales_receit_header_id']; ?>" data-table="sales_receit_header">Update</a>
                             </td><?php } ?></tr>
                     <?php
                     $pages += 1;
@@ -1051,12 +1042,10 @@
 
 
                         <td>
-                            <a href="#" class="measurement_delete_link" style="color: #000080;" value="
-                               <?php echo $row['measurement_id']; ?>">Delete</a>
+                            <a href="#" class="measurement_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['measurement_id']; ?>" data-tale="measurement">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="measurement_update_link" style="color: #000080;" value="
-                               <?php echo $row['measurement_id']; ?>">Update</a>
+                            <a href="#" class="measurement_update_link" style="color: #000080;" data-table_id="<?php echo $row['measurement_id']; ?>" data-table="measurement">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -1255,12 +1244,10 @@
 
 
                         <td>
-                            <a href="#" class="tax_delete_link" style="color: #000080;" value="
-                               <?php echo $row['tax_id']; ?>">Delete</a>
+                            <a href="#" class="tax_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['tax_id']; ?>" data-table="tax">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="tax_update_link" style="color: #000080;" value="
-                               <?php echo $row['tax_id']; ?>">Update</a>
+                            <a href="#" class="tax_update_link" style="color: #000080;" data-table_id="<?php echo $row['tax_id']; ?>" data-table="tax">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -1371,8 +1358,9 @@
                     <td>        <?php echo $row['phone']; ?> </td>
                     <td>        <?php echo $row['primary_contact']; ?> </td>
                     <?php if (isset($_SESSION['shall_delete'])) { ?> 
-                        <td>      <a href="#" class="dele_upd_link">Delete</a> </td>
-                        <td>       <a href="#" class="dele_upd_link">Update</a> </td>
+                        <td>      <a href="#" class="dele_upd_link" data-id_delete="<?php echo $row['vendor_id']; ?>" data-table="vendor">Delete</a> </td>
+                        <td>       <a href="#" class="dele_upd_link" data-id_delete="<?php echo $row['vendor_id']; ?>" data-table = "vendor">Update</a> </td>
+                       
                     <?php } ?>
                 </tr>
                 <?php
@@ -1549,12 +1537,10 @@
 
 
                         <td>
-                            <a href="#" class="general_ledger_header_delete_link" style="color: #000080;" value="
-                               <?php echo $row['general_ledger_header_id']; ?>">Delete</a>
+                            <a href="#" class="general_ledger_header_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['general_ledger_header_id']; ?>" data-table="general_ledger_header">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="general_ledger_header_update_link" style="color: #000080;" value="
-                               <?php echo $row['general_ledger_header_id']; ?>">Update</a>
+                            <a href="#" class="general_ledger_header_update_link" style="color: #000080;" data-table_id="<?php echo $row['general_ledger_header_id']; ?>" data-table="general_ledger_header">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -1678,12 +1664,10 @@
 
 
                         <td>
-                            <a href="#" class="party_delete_link" style="color: #000080;" value="
-                               <?php echo $row['party_id']; ?>">Delete</a>
+                            <a href="#" class="party_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['party_id']; ?>" data-table="party">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="party_update_link" style="color: #000080;" value="
-                               <?php echo $row['party_id']; ?>">Update</a>
+                            <a href="#" class="party_update_link" style="color: #000080;" data-table_id="<?php echo $row['party_id']; ?>" data-table="party">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -1828,12 +1812,10 @@
 
 
                         <td>
-                            <a href="#" class="contact_delete_link" style="color: #000080;" value="
-                               <?php echo $row['contact_id']; ?>">Delete</a>
+                            <a href="#" class="contact_delete_link" style="color: #000080;" data.id_delete="<?php echo $row['contact_id']; ?>" data-table="contact">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="contact_update_link" style="color: #000080;" value="
-                               <?php echo $row['contact_id']; ?>">Update</a>
+                            <a href="#" class="contact_update_link" style="color: #000080;" data-table_id="<?php echo $row['contact_id']; ?>" data-table="contact">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -2143,12 +2125,10 @@
 
                         <?php if (isset($_SESSION['shall_delete'])) { ?>
                             <td>
-                                <a href="#" class="taxgroup_delete_link" style="color: #000080;" value="
-                                   <?php echo $row['taxgroup_id']; ?>">Delete</a>
+                                <a href="#" class="taxgroup_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['taxgroup_id']; ?>" data-table="taxgroup">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="taxgroup_update_link" style="color: #000080;" value="
-                                   <?php echo $row['taxgroup_id']; ?>">Update</a>
+                                <a href="#" class="taxgroup_update_link" style="color: #000080;" data-table_id="<?php echo $row['taxgroup_id']; ?>" data-table="taxgroup">Update</a>
                             </td><?php } ?></tr>
                     <?php
                     $pages += 1;
@@ -2272,12 +2252,10 @@
 
 
                         <td>
-                            <a href="#" class="journal_entry_header_delete_link" style="color: #000080;" value="
-                               <?php echo $row['journal_entry_header_id']; ?>">Delete</a>
+                            <a href="#" class="journal_entry_header_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['journal_entry_header_id']; ?>" data-table="journal_entry_header">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="journal_entry_header_update_link" style="color: #000080;" value="
-                               <?php echo $row['journal_entry_header_id']; ?>">Update</a>
+                            <a href="#" class="journal_entry_header_update_link" style="color: #000080;" data-table_id="<?php echo $row['journal_entry_header_id']; ?>" data-table="journal_entry_header">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -2397,7 +2375,7 @@
             function list_Payment_term($min) {
                 $database = new dbconnection();
                 $db = $database->openConnection();
-                $sql = "select * from Payment_term";
+                $sql = "select * from payment_term";
                 $stmt = $db->prepare($sql);
                 $stmt->execute(array(":min" => $min));
                 ?>
@@ -2430,12 +2408,10 @@
 
 
                         <td>
-                            <a href="#" class="Payment_term_delete_link" style="color: #000080;" value="
-                               <?php echo $row['Payment_term_id']; ?>">Delete</a>
+                            <a href="#" class="Payment_term_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['Payment_term_id']; ?>" data-table="payment_term">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="Payment_term_update_link" style="color: #000080;" value="
-                               <?php echo $row['Payment_term_id']; ?>">Update</a>
+                            <a href="#" class="Payment_term_update_link" style="color: #000080;" data-table_id="<?php echo $row['Payment_term_id']; ?>" data-table="payment_term">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -2603,12 +2579,10 @@
 
 
                         <td>
-                            <a href="#" class="item_delete_link" style="color: #000080;" value="
-                               <?php echo $row['item_id']; ?>">Delete</a>
+                            <a href="#" class="item_delete_link" style="color: #000080;" data_id_delete="<?php echo $row['item_id']; ?>" data-table="item">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="item_update_link" style="color: #000080;" value="
-                               <?php echo $row['item_id']; ?>">Update</a>
+                            <a href="#" class="item_update_link" style="color: #000080;" data-table_id="<?php echo $row['item_id']; ?>" data-table="item">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -2887,12 +2861,10 @@
 
 
                         <td>
-                            <a href="#" class="item_group_delete_link" style="color: #000080;" value="
-                               <?php echo $row['item_group_id']; ?>">Delete</a>
+                            <a href="#" class="item_group_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['item_group_id']; ?>" data-table="item_group">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="item_group_update_link" style="color: #000080;" value="
-                               <?php echo $row['item_group_id']; ?>">Update</a>
+                            <a href="#" class="item_group_update_link" style="color: #000080;" data-table_d="<?php echo $row['item_group_id']; ?>" data-table="item_group">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -3006,12 +2978,10 @@
 
 
                         <td>
-                            <a href="#" class="item_category_delete_link" style="color: #000080;" value="
-                               <?php echo $row['item_category_id']; ?>">Delete</a>
+                            <a href="#" class="item_category_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['item_category_id']; ?>" data-table="item_category">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="item_category_update_link" style="color: #000080;" value="
-                               <?php echo $row['item_category_id']; ?>">Update</a>
+                            <a href="#" class="item_category_update_link" style="color: #000080;" data-table_id="<?php echo $row['item_category_id']; ?>" data-table="item_category">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -3181,12 +3151,10 @@
 
 
                         <td>
-                            <a href="#" class="vendor_payment_delete_link" style="color: #000080;" value="
-                               <?php echo $row['vendor_payment_id']; ?>">Delete</a>
+                            <a href="#" class="vendor_payment_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['vendor_payment_id']; ?>" data-table="vendor_payment">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="vendor_payment_update_link" style="color: #000080;" value="
-                               <?php echo $row['vendor_payment_id']; ?>">Update</a>
+                            <a href="#" class="vendor_payment_update_link" style="color: #000080;" data-table_id="<?php echo $row['vendor_payment_id']; ?>" data-table="vendor_payment">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -3279,7 +3247,7 @@
                 return $c;
             }
 
-            function get_first_vendor_payment() {
+        function get_first_vendor_payment() {
                 $con = new dbconnection();
                 $sql = "select vendor_payment.vendor_payment_id from vendor_payment
                     order by vendor_payment.vendor_payment_id asc
@@ -3291,7 +3259,7 @@
                 return $first_rec;
             }
 
-            function get_last_vendor_payment() {
+        function get_last_vendor_payment() {
                 $con = new dbconnection();
                 $sql = "select vendor_payment.vendor_payment_id from vendor_payment
                     order by vendor_payment.vendor_payment_id desc
@@ -3303,7 +3271,7 @@
                 return $first_rec;
             }
 
-            function list_sales_delivery_header($min) {
+        function list_sales_delivery_header($min) {
                 $database = new dbconnection();
                 $db = $database->openConnection();
                 $sql = "select * from sales_delivery_header";
@@ -3337,12 +3305,10 @@
 
 
                         <td>
-                            <a href="#" class="sales_delivery_header_delete_link" style="color: #000080;" value="
-                               <?php echo $row['sales_delivery_header_id']; ?>">Delete</a>
+                            <a href="#" class="sales_delivery_header_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['sales_delivery_header_id']; ?>" data-table="sales_delivery_header">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="sales_delivery_header_update_link" style="color: #000080;" value="
-                               <?php echo $row['sales_delivery_header_id']; ?>">Update</a>
+                            <a href="#" class="sales_delivery_header_update_link" style="color: #000080;" data-table_id="<?php echo $row['sales_delivery_header_id']; ?>" data-table="sales_delivery_header">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -3352,7 +3318,7 @@
             }
 
 //chosen individual field
-            function get_chosen_sales_delivery_header_customer($id) {
+        function get_chosen_sales_delivery_header_customer($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_delivery_header.customer from sales_delivery_header where sales_delivery_header_id=:sales_delivery_header_id ";
@@ -3364,7 +3330,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_delivery_header_gen_ledger_header($id) {
+        function get_chosen_sales_delivery_header_gen_ledger_header($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_delivery_header.gen_ledger_header from sales_delivery_header where sales_delivery_header_id=:sales_delivery_header_id ";
@@ -3376,7 +3342,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_delivery_header_payment_term($id) {
+        function get_chosen_sales_delivery_header_payment_term($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_delivery_header.payment_term from sales_delivery_header where sales_delivery_header_id=:sales_delivery_header_id ";
@@ -3388,7 +3354,7 @@
                 echo $field;
             }
 
-            function All_sales_delivery_header() {
+        function All_sales_delivery_header() {
                 $c = 0;
                 $database = new dbconnection();
                 $db = $database->openConnection();
@@ -3399,7 +3365,7 @@
                 return $c;
             }
 
-            function get_first_sales_delivery_header() {
+        function get_first_sales_delivery_header() {
                 $con = new dbconnection();
                 $sql = "select sales_delivery_header.sales_delivery_header_id from sales_delivery_header
                     order by sales_delivery_header.sales_delivery_header_id asc
@@ -3411,7 +3377,7 @@
                 return $first_rec;
             }
 
-            function get_last_sales_delivery_header() {
+        function get_last_sales_delivery_header() {
                 $con = new dbconnection();
                 $sql = "select sales_delivery_header.sales_delivery_header_id from sales_delivery_header
                     order by sales_delivery_header.sales_delivery_header_id desc
@@ -3423,7 +3389,7 @@
                 return $first_rec;
             }
 
-            function list_sale_delivery_line($min) {
+        function list_sale_delivery_line($min) {
                 $database = new dbconnection();
                 $db = $database->openConnection();
                 $sql = "select * from sale_delivery_line";
@@ -3460,12 +3426,10 @@
 
 
                         <td>
-                            <a href="#" class="sale_delivery_line_delete_link" style="color: #000080;" value="
-                               <?php echo $row['sale_delivery_line_id']; ?>">Delete</a>
+                            <a href="#" class="sale_delivery_line_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['sale_delivery_line_id']; ?>" data-table="sale_delivery_line">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="sale_delivery_line_update_link" style="color: #000080;" value="
-                               <?php echo $row['sale_delivery_line_id']; ?>">Update</a>
+                            <a href="#" class="sale_delivery_line_update_link" style="color: #000080;" data-table_id="<?php echo $row['sale_delivery_line_id']; ?>" data-table="sale_delivery_line">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -3475,7 +3439,7 @@
             }
 
 //chosen individual field
-            function get_chosen_sale_delivery_line_item($id) {
+        function get_chosen_sale_delivery_line_item($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sale_delivery_line.item from sale_delivery_line where sale_delivery_line_id=:sale_delivery_line_id ";
@@ -3487,7 +3451,7 @@
                 echo $field;
             }
 
-            function get_chosen_sale_delivery_line_measurement($id) {
+        function get_chosen_sale_delivery_line_measurement($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sale_delivery_line.measurement from sale_delivery_line where sale_delivery_line_id=:sale_delivery_line_id ";
@@ -3499,7 +3463,7 @@
                 echo $field;
             }
 
-            function get_chosen_sale_delivery_line_sales_delivery_header($id) {
+        function get_chosen_sale_delivery_line_sales_delivery_header($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sale_delivery_line.sales_delivery_header from sale_delivery_line where sale_delivery_line_id=:sale_delivery_line_id ";
@@ -3511,7 +3475,7 @@
                 echo $field;
             }
 
-            function get_chosen_sale_delivery_line_sales_invoice_line($id) {
+        function get_chosen_sale_delivery_line_sales_invoice_line($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sale_delivery_line.sales_invoice_line from sale_delivery_line where sale_delivery_line_id=:sale_delivery_line_id ";
@@ -3523,7 +3487,7 @@
                 echo $field;
             }
 
-            function All_sale_delivery_line() {
+        function All_sale_delivery_line() {
                 $c = 0;
                 $database = new dbconnection();
                 $db = $database->openConnection();
@@ -3534,7 +3498,7 @@
                 return $c;
             }
 
-            function get_first_sale_delivery_line() {
+        function get_first_sale_delivery_line() {
                 $con = new dbconnection();
                 $sql = "select sale_delivery_line.sale_delivery_line_id from sale_delivery_line
                     order by sale_delivery_line.sale_delivery_line_id asc
@@ -3546,7 +3510,7 @@
                 return $first_rec;
             }
 
-            function get_last_sale_delivery_line() {
+        function get_last_sale_delivery_line() {
                 $con = new dbconnection();
                 $sql = "select sale_delivery_line.sale_delivery_line_id from sale_delivery_line
                     order by sale_delivery_line.sale_delivery_line_id desc
@@ -3558,7 +3522,7 @@
                 return $first_rec;
             }
 
-            function list_sales_invoice_line($min) {
+        function list_sales_invoice_line($min) {
                 $database = new dbconnection();
                 $db = $database->openConnection();
                 $sql = "select sales_invoice_line.sales_invoice_line_id,  sales_invoice_line.quantity,  sales_invoice_line.unit_cost,  sales_invoice_line.amount,  sales_invoice_line.entry_date,  sales_invoice_line.User,  sales_invoice_line.client,  sales_invoice_line.sales_order,  sales_invoice_line.budget_prep_id,  sales_invoice_line.acc_debit, "
@@ -3626,12 +3590,10 @@
 
                         <?php if (isset($_SESSION['shall_delete'])) { ?>
                             <td>
-                                <a href="#" class="sales_invoice_line_delete_link" style="color: #000080;" data-id_delete="sales_invoice_line_id"  data-table="
-                                   <?php echo $row['sales_invoice_line_id']; ?>">Delete</a>
+                                <a href="#" class="sales_invoice_line_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['sales_invoice_line_id']; ?>"  data-table="sales_invoice_line">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="sales_invoice_line_update_link" style="color: #000080;" value="
-                                   <?php echo $row['sales_invoice_line_id']; ?>">Update</a>
+                                <a href="#" class="sales_invoice_line_update_link" style="color: #000080;" data-table_id="<?php echo $row['sales_invoice_line_id']; ?>" data-table="sales_invoice_line">Update</a>
                             </td><?php } ?></tr>
                     <?php
                     $pages += 1;
@@ -3641,7 +3603,7 @@
             }
 
 //chosen individual field
-            function get_chosen_sales_invoice_line_item($id) {
+        function get_chosen_sales_invoice_line_item($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_invoice_line.item from sales_invoice_line where sales_invoice_line_id=:sales_invoice_line_id ";
@@ -3653,7 +3615,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_invoice_line_measurement($id) {
+        function get_chosen_sales_invoice_line_measurement($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_invoice_line.measurement from sales_invoice_line where sales_invoice_line_id=:sales_invoice_line_id ";
@@ -3665,7 +3627,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_invoice_line_sales_delivery_header($id) {
+        function get_chosen_sales_invoice_line_sales_delivery_header($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_invoice_line.sales_delivery_header from sales_invoice_line where sales_invoice_line_id=:sales_invoice_line_id ";
@@ -3677,7 +3639,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_invoice_line_sales_invoice_header($id) {
+        function get_chosen_sales_invoice_line_sales_invoice_header($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_invoice_line.sales_invoice_header from sales_invoice_line where sales_invoice_line_id=:sales_invoice_line_id ";
@@ -3809,12 +3771,10 @@
 
 
                         <td>
-                            <a href="#" class="sales_invoice_header_delete_link" style="color: #000080;" value="
-                               <?php echo $row['sales_invoice_header_id']; ?>">Delete</a>
+                            <a href="#" class="sales_invoice_header_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['sales_invoice_header_id']; ?>" data-table="sales_invoice_header">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="sales_invoice_header_update_link" style="color: #000080;" value="
-                               <?php echo $row['sales_invoice_header_id']; ?>">Update</a>
+                            <a href="#" class="sales_invoice_header_update_link" style="color: #000080;" data-table_id="<?php echo $row['sales_invoice_header_id']; ?>" data-table="sales_invoice_header">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -3824,7 +3784,7 @@
             }
 
 //chosen individual field
-            function get_chosen_sales_invoice_header_customer($id) {
+        function get_chosen_sales_invoice_header_customer($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_invoice_header.customer from sales_invoice_header where sales_invoice_header_id=:sales_invoice_header_id ";
@@ -3836,7 +3796,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_invoice_header_payment_term($id) {
+        function get_chosen_sales_invoice_header_payment_term($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_invoice_header.payment_term from sales_invoice_header where sales_invoice_header_id=:sales_invoice_header_id ";
@@ -3848,7 +3808,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_invoice_header_gen_ledger_header($id) {
+        function get_chosen_sales_invoice_header_gen_ledger_header($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_invoice_header.gen_ledger_header from sales_invoice_header where sales_invoice_header_id=:sales_invoice_header_id ";
@@ -3860,7 +3820,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_invoice_header_number($id) {
+        function get_chosen_sales_invoice_header_number($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_invoice_header.number from sales_invoice_header where sales_invoice_header_id=:sales_invoice_header_id ";
@@ -3872,7 +3832,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_invoice_header_date($id) {
+        function get_chosen_sales_invoice_header_date($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_invoice_header.date from sales_invoice_header where sales_invoice_header_id=:sales_invoice_header_id ";
@@ -3884,7 +3844,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_invoice_header_Shipping($id) {
+        function get_chosen_sales_invoice_header_Shipping($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_invoice_header.Shipping from sales_invoice_header where sales_invoice_header_id=:sales_invoice_header_id ";
@@ -3896,7 +3856,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_invoice_header_status($id) {
+        function get_chosen_sales_invoice_header_status($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_invoice_header.status from sales_invoice_header where sales_invoice_header_id=:sales_invoice_header_id ";
@@ -3908,7 +3868,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_invoice_header_reference_no($id) {
+        function get_chosen_sales_invoice_header_reference_no($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_invoice_header.reference_no from sales_invoice_header where sales_invoice_header_id=:sales_invoice_header_id ";
@@ -3920,7 +3880,7 @@
                 echo $field;
             }
 
-            function All_sales_invoice_header() {
+        function All_sales_invoice_header() {
                 $c = 0;
                 $database = new dbconnection();
                 $db = $database->openConnection();
@@ -3931,7 +3891,7 @@
                 return $c;
             }
 
-            function get_first_sales_invoice_header() {
+        function get_first_sales_invoice_header() {
                 $con = new dbconnection();
                 $sql = "select sales_invoice_header.sales_invoice_header_id from sales_invoice_header
                     order by sales_invoice_header.sales_invoice_header_id asc
@@ -3943,7 +3903,7 @@
                 return $first_rec;
             }
 
-            function get_last_sales_invoice_header() {
+        function get_last_sales_invoice_header() {
                 $con = new dbconnection();
                 $sql = "select sales_invoice_header.sales_invoice_header_id from sales_invoice_header
                     order by sales_invoice_header.sales_invoice_header_id desc
@@ -3955,7 +3915,7 @@
                 return $first_rec;
             }
 
-            function list_sales_order_line($min) {
+        function list_sales_order_line($min) {
                 $database = new dbconnection();
                 $db = $database->openConnection();
                 $sql = "select sales_order_line.sales_order_line_id,  sales_order_line.quantity,  sales_order_line.unit_cost,  sales_order_line.amount,  sales_order_line.entry_date,  sales_order_line.User,  sales_order_line.quotationid, user.Firstname, user.Lastname, p_budget_items.item_name as item from sales_order_line "
@@ -4010,12 +3970,10 @@
 
                         <?php if (isset($_SESSION['shall_delete'])) { ?>
                             <td>
-                                <a href="#" class="sales_order_line_delete_link" style="color: #000080;" value="
-                                   <?php echo $row['sales_order_line_id']; ?>">Delete</a>
+                                <a href="#" class="sales_order_line_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['sales_order_line_id']; ?>" data-table="sales_order_line">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="sales_order_line_update_link" style="color: #000080;" value="
-                                   <?php echo $row['sales_order_line_id']; ?>">Update</a>
+                                <a href="#" class="sales_order_line_update_link" style="color: #000080;" data-table_id="<?php echo $row['sales_order_line_id']; ?>" data-table="sales_order_line">Update</a>
                             </td><?php } ?></tr>
                     <?php
                     $pages += 1;
@@ -4025,7 +3983,7 @@
             }
 
 //chosen individual field
-            function get_chosen_sales_order_line_sales_order_header($id) {
+        function get_chosen_sales_order_line_sales_order_header($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_order_line.sales_order_header from sales_order_line where sales_order_line_id=:sales_order_line_id ";
@@ -4037,7 +3995,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_order_line_item($id) {
+        function get_chosen_sales_order_line_item($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_order_line.item from sales_order_line where sales_order_line_id=:sales_order_line_id ";
@@ -4049,7 +4007,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_order_line_measurement($id) {
+        function get_chosen_sales_order_line_measurement($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_order_line.measurement from sales_order_line where sales_order_line_id=:sales_order_line_id ";
@@ -4061,7 +4019,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_order_line_quantity($id) {
+        function get_chosen_sales_order_line_quantity($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_order_line.quantity from sales_order_line where sales_order_line_id=:sales_order_line_id ";
@@ -4073,7 +4031,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_order_line_discount($id) {
+        function get_chosen_sales_order_line_discount($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_order_line.discount from sales_order_line where sales_order_line_id=:sales_order_line_id ";
@@ -4085,7 +4043,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_order_line_amount($id) {
+        function get_chosen_sales_order_line_amount($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_order_line.amount from sales_order_line where sales_order_line_id=:sales_order_line_id ";
@@ -4097,7 +4055,7 @@
                 echo $field;
             }
 
-            function All_sales_order_line() {
+        function All_sales_order_line() {
                 $c = 0;
                 $database = new dbconnection();
                 $db = $database->openConnection();
@@ -4108,7 +4066,7 @@
                 return $c;
             }
 
-            function get_first_sales_order_line() {
+        function get_first_sales_order_line() {
                 $con = new dbconnection();
                 $sql = "select sales_order_line.sales_order_line_id from sales_order_line
                     order by sales_order_line.sales_order_line_id asc
@@ -4120,7 +4078,7 @@
                 return $first_rec;
             }
 
-            function get_last_sales_order_line() {
+        function get_last_sales_order_line() {
                 $con = new dbconnection();
                 $sql = "select sales_order_line.sales_order_line_id from sales_order_line
                     order by sales_order_line.sales_order_line_id desc
@@ -4132,7 +4090,7 @@
                 return $first_rec;
             }
 
-            function list_sales_order_header($min) {
+        function list_sales_order_header($min) {
                 $database = new dbconnection();
                 $db = $database->openConnection();
                 $sql = "select * from sales_order_header";
@@ -4177,12 +4135,10 @@
                             <?php echo $row['item']; ?>
                         </td>
                         <td>
-                            <a href="#" class="sales_order_header_delete_link" style="color: #000080;" value="
-                               <?php echo $row['sales_order_header_id']; ?>">Delete</a>
+                            <a href="#" class="sales_order_header_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['sales_order_header_id']; ?>" data-table="sales_order_header">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="sales_order_header_update_link" style="color: #000080;" value="
-                               <?php echo $row['sales_order_header_id']; ?>">Update</a>
+                            <a href="#" class="sales_order_header_update_link" style="color: #000080;" data-table_id="<?php echo $row['sales_order_header_id']; ?>" data-table="sales_order_header">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -4192,7 +4148,7 @@
             }
 
 //chosen individual field
-            function get_chosen_sales_order_header_customer($id) {
+        function get_chosen_sales_order_header_customer($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_order_header.customer from sales_order_header where sales_order_header_id=:sales_order_header_id ";
@@ -4204,7 +4160,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_order_header_payment_term($id) {
+        function get_chosen_sales_order_header_payment_term($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_order_header.payment_term from sales_order_header where sales_order_header_id=:sales_order_header_id ";
@@ -4216,7 +4172,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_order_header_number($id) {
+        function get_chosen_sales_order_header_number($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_order_header.number from sales_order_header where sales_order_header_id=:sales_order_header_id ";
@@ -4228,7 +4184,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_order_header_reference_number($id) {
+        function get_chosen_sales_order_header_reference_number($id) {
                 $db = new dbconnection();
                 $sql = "select   sales_order_header.reference_number from sales_order_header where sales_order_header_id=:sales_order_header_id ";
                 $stmt = $db->openConnection()->prepare($sql);
@@ -4239,7 +4195,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_order_header_date($id) {
+        function get_chosen_sales_order_header_date($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_order_header.date from sales_order_header where sales_order_header_id=:sales_order_header_id ";
@@ -4251,7 +4207,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_order_header_status($id) {
+        function get_chosen_sales_order_header_status($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_order_header.status from sales_order_header where sales_order_header_id=:sales_order_header_id ";
@@ -4263,7 +4219,7 @@
                 echo $field;
             }
 
-            function All_sales_order_header() {
+        function All_sales_order_header() {
                 $c = 0;
                 $database = new dbconnection();
                 $db = $database->openConnection();
@@ -4274,7 +4230,7 @@
                 return $c;
             }
 
-            function get_first_sales_order_header() {
+        function get_first_sales_order_header() {
                 $con = new dbconnection();
                 $sql = "select sales_order_header.sales_order_header_id from sales_order_header
                     order by sales_order_header.sales_order_header_id asc
@@ -4286,7 +4242,7 @@
                 return $first_rec;
             }
 
-            function get_last_sales_order_header() {
+        function get_last_sales_order_header() {
                 $con = new dbconnection();
                 $sql = "select sales_order_header.sales_order_header_id from sales_order_header
                     order by sales_order_header.sales_order_header_id desc
@@ -4298,7 +4254,7 @@
                 return $first_rec;
             }
 
-            function list_sales_quote_line() {
+        function list_sales_quote_line() {
                 $database = new dbconnection();
                 $db = $database->openConnection();
                 $sql = "select  sales_quote_line.sales_quote_line_id,  sales_quote_line.quantity,  measurement.code as measurement_unit,
@@ -4354,12 +4310,10 @@
 
                         <?php if (isset($_SESSION['shall_delete'])) { ?>
                             <td>
-                                <a href="#" class="sales_quote_line_delete_link" style="color: #000080;" data-id_delete="sales_quote_line_id"  data-table="
-                                   <?php echo $row['sales_quote_line_id']; ?>">Delete</a>
+                                <a href="#" class="sales_quote_line_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['sales_quote_line_id']; ?>"  data-table="sales_quote_line">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="sales_quote_line_update_link" style="color: #000080;" value="
-                                   <?php echo $row['sales_quote_line_id']; ?>">Update</a>
+                                <a href="#" class="sales_quote_line_update_link" style="color: #000080;" data-table_id="<?php echo $row['sales_quote_line_id']; ?>" data-table="sales_quote_line">Update</a>
                             </td><?php } ?></tr>
                     <?php
                     $pages += 1;
@@ -4370,7 +4324,7 @@
             }
 
 //chosen individual field
-            function get_chosen_sales_quote_line_sales_quote_header($id) {
+        function get_chosen_sales_quote_line_sales_quote_header($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_quote_line.sales_quote_header from sales_quote_line where sales_quote_line_id=:sales_quote_line_id ";
@@ -4382,7 +4336,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_quote_line_item($id) {
+        function get_chosen_sales_quote_line_item($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_quote_line.item from sales_quote_line where sales_quote_line_id=:sales_quote_line_id ";
@@ -4394,7 +4348,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_quote_line_measurement($id) {
+        function get_chosen_sales_quote_line_measurement($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_quote_line.measurement from sales_quote_line where sales_quote_line_id=:sales_quote_line_id ";
@@ -4406,7 +4360,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_quote_line_quantity($id) {
+        function get_chosen_sales_quote_line_quantity($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_quote_line.quantity from sales_quote_line where sales_quote_line_id=:sales_quote_line_id ";
@@ -4418,7 +4372,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_quote_line_discount($id) {
+        function get_chosen_sales_quote_line_discount($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_quote_line.discount from sales_quote_line where sales_quote_line_id=:sales_quote_line_id ";
@@ -4430,7 +4384,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_quote_line_amount($id) {
+        function get_chosen_sales_quote_line_amount($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_quote_line.amount from sales_quote_line where sales_quote_line_id=:sales_quote_line_id ";
@@ -4442,7 +4396,7 @@
                 echo $field;
             }
 
-            function All_sales_quote_line() {
+        function All_sales_quote_line() {
                 $c = 0;
                 $database = new dbconnection();
                 $db = $database->openConnection();
@@ -4453,7 +4407,7 @@
                 return $c;
             }
 
-            function get_first_sales_quote_line() {
+        function get_first_sales_quote_line() {
                 $con = new dbconnection();
                 $sql = "select sales_quote_line.sales_quote_line_id from sales_quote_line
                     order by sales_quote_line.sales_quote_line_id asc
@@ -4465,7 +4419,7 @@
                 return $first_rec;
             }
 
-            function get_last_sales_quote_line() {
+        function get_last_sales_quote_line() {
                 $con = new dbconnection();
                 $sql = "select sales_quote_line.sales_quote_line_id from sales_quote_line
                     order by sales_quote_line.sales_quote_line_id desc
@@ -4477,7 +4431,7 @@
                 return $first_rec;
             }
 
-            function list_sales_quote_header($min) {
+        function list_sales_quote_header($min) {
                 $database = new dbconnection();
                 $db = $database->openConnection();
                 $sql = "select * from sales_quote_header";
@@ -4520,13 +4474,12 @@
 
 
                         <td>
-                            <a href="#" class="sales_quote_header_delete_link" style="color: #000080;" value="
-                               <?php echo $row['sales_quote_header_id']; ?>">Delete</a>
+                            <a href="#" class="sales_quote_header_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['sales_quote_header_id']; ?>" data-table="sales_quote_header">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="sales_quote_header_update_link" style="color: #000080;" value="
-                               <?php echo $row['sales_quote_header_id']; ?>">Update</a>
+                            <a href="#" class="sales_quote_header_update_link" style="color: #000080;" data-table_id="<?php echo $row['sales_quote_header_id']; ?>" data-table="sales_quote_header">Update</a>
                         </td></tr>
+                    
                     <?php
                     $pages += 1;
                 }
@@ -4535,7 +4488,7 @@
             }
 
 //chosen individual field
-            function get_chosen_sales_quote_header_customer($id) {
+        function get_chosen_sales_quote_header_customer($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_quote_header.customer from sales_quote_header where sales_quote_header_id=:sales_quote_header_id ";
@@ -4547,7 +4500,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_quote_header_date($id) {
+        function get_chosen_sales_quote_header_date($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_quote_header.date from sales_quote_header where sales_quote_header_id=:sales_quote_header_id ";
@@ -4559,7 +4512,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_quote_header_payment_term($id) {
+        function get_chosen_sales_quote_header_payment_term($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_quote_header.payment_term from sales_quote_header where sales_quote_header_id=:sales_quote_header_id ";
@@ -4571,7 +4524,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_quote_header_reference_number($id) {
+        function get_chosen_sales_quote_header_reference_number($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_quote_header.reference_number from sales_quote_header where sales_quote_header_id=:sales_quote_header_id ";
@@ -4583,7 +4536,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_quote_header_number($id) {
+        function get_chosen_sales_quote_header_number($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_quote_header.number from sales_quote_header where sales_quote_header_id=:sales_quote_header_id ";
@@ -4595,7 +4548,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_quote_header_status($id) {
+        function get_chosen_sales_quote_header_status($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_quote_header.status from sales_quote_header where sales_quote_header_id=:sales_quote_header_id ";
@@ -4607,7 +4560,7 @@
                 echo $field;
             }
 
-            function All_sales_quote_header() {
+        function All_sales_quote_header() {
                 $c = 0;
                 $database = new dbconnection();
                 $db = $database->openConnection();
@@ -4618,7 +4571,7 @@
                 return $c;
             }
 
-            function get_first_sales_quote_header() {
+        function get_first_sales_quote_header() {
                 $con = new dbconnection();
                 $sql = "select sales_quote_header.sales_quote_header_id from sales_quote_header
                     order by sales_quote_header.sales_quote_header_id asc
@@ -4630,7 +4583,7 @@
                 return $first_rec;
             }
 
-            function get_last_sales_quote_header() {
+        function get_last_sales_quote_header() {
                 $con = new dbconnection();
                 $sql = "select sales_quote_header.sales_quote_header_id from sales_quote_header
                     order by sales_quote_header.sales_quote_header_id desc
@@ -4645,7 +4598,7 @@
 //chosen individual field
 
 
-            function get_chosen_sales_receit_header_number($id) {
+        function get_chosen_sales_receit_header_number($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_receit_header.number from sales_receit_header where sales_receit_header_id=:sales_receit_header_id ";
@@ -4657,7 +4610,7 @@
                 echo $field;
             }
 
-            function get_chosen_sales_receit_header_amount($id) {
+        function get_chosen_sales_receit_header_amount($id) {
 
                 $db = new dbconnection();
                 $sql = "select   sales_receit_header.amount from sales_receit_header where sales_receit_header_id=:sales_receit_header_id ";
@@ -4669,7 +4622,7 @@
                 echo $field;
             }
 
-            function list_purchase_invoice_header($min) {
+        function list_purchase_invoice_header($min) {
                 $database = new dbconnection();
                 $db = $database->openConnection();
                 $sql = "select * from purchase_invoice_header";
@@ -4718,12 +4671,10 @@
 
 
                         <td>
-                            <a href="#" class="purchase_invoice_header_delete_link" style="color: #000080;" value="
-                               <?php echo $row['purchase_invoice_header_id']; ?>">Delete</a>
+                            <a href="#" class="purchase_invoice_header_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['purchase_invoice_header_id']; ?>" data-table="purchase_invoice_header">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="purchase_invoice_header_update_link" style="color: #000080;" value="
-                               <?php echo $row['purchase_invoice_header_id']; ?>">Update</a>
+                            <a href="#" class="purchase_invoice_header_update_link" style="color: #000080;" data-table_id="<?php echo $row['purchase_invoice_header_id']; ?>" data-table="purchase_invoice_header">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -4733,7 +4684,7 @@
             }
 
 //chosen individual field
-            function get_chosen_purchase_invoice_header_inv_control_journal($id) {
+        function get_chosen_purchase_invoice_header_inv_control_journal($id) {
 
                 $db = new dbconnection();
                 $sql = "select   purchase_invoice_header.inv_control_journal from purchase_invoice_header where purchase_invoice_header_id=:purchase_invoice_header_id ";
@@ -4745,7 +4696,7 @@
                 echo $field;
             }
 
-            function get_chosen_purchase_invoice_header_item($id) {
+        function get_chosen_purchase_invoice_header_item($id) {
 
                 $db = new dbconnection();
                 $sql = "select   purchase_invoice_header.item from purchase_invoice_header where purchase_invoice_header_id=:purchase_invoice_header_id ";
@@ -4757,7 +4708,7 @@
                 echo $field;
             }
 
-            function get_chosen_purchase_invoice_header_measurement($id) {
+        function get_chosen_purchase_invoice_header_measurement($id) {
 
                 $db = new dbconnection();
                 $sql = "select   purchase_invoice_header.measurement from purchase_invoice_header where purchase_invoice_header_id=:purchase_invoice_header_id ";
@@ -4769,7 +4720,7 @@
                 echo $field;
             }
 
-            function get_chosen_purchase_invoice_header_quantity($id) {
+        function get_chosen_purchase_invoice_header_quantity($id) {
 
                 $db = new dbconnection();
                 $sql = "select   purchase_invoice_header.quantity from purchase_invoice_header where purchase_invoice_header_id=:purchase_invoice_header_id ";
@@ -4781,7 +4732,7 @@
                 echo $field;
             }
 
-            function get_chosen_purchase_invoice_header_receieved_qusntinty($id) {
+        function get_chosen_purchase_invoice_header_receieved_qusntinty($id) {
 
                 $db = new dbconnection();
                 $sql = "select   purchase_invoice_header.receieved_qusntinty from purchase_invoice_header where purchase_invoice_header_id=:purchase_invoice_header_id ";
@@ -4793,7 +4744,7 @@
                 echo $field;
             }
 
-            function get_chosen_purchase_invoice_header_cost($id) {
+        function get_chosen_purchase_invoice_header_cost($id) {
 
                 $db = new dbconnection();
                 $sql = "select   purchase_invoice_header.cost from purchase_invoice_header where purchase_invoice_header_id=:purchase_invoice_header_id ";
@@ -4805,7 +4756,7 @@
                 echo $field;
             }
 
-            function get_chosen_purchase_invoice_header_discount($id) {
+        function get_chosen_purchase_invoice_header_discount($id) {
 
                 $db = new dbconnection();
                 $sql = "select   purchase_invoice_header.discount from purchase_invoice_header where purchase_invoice_header_id=:purchase_invoice_header_id ";
@@ -4817,7 +4768,7 @@
                 echo $field;
             }
 
-            function get_chosen_purchase_invoice_header_purchase_order_line($id) {
+        function get_chosen_purchase_invoice_header_purchase_order_line($id) {
 
                 $db = new dbconnection();
                 $sql = "select   purchase_invoice_header.purchase_order_line from purchase_invoice_header where purchase_invoice_header_id=:purchase_invoice_header_id ";
@@ -4829,7 +4780,7 @@
                 echo $field;
             }
 
-            function All_purchase_invoice_header() {
+        function All_purchase_invoice_header() {
                 $c = 0;
                 $database = new dbconnection();
                 $db = $database->openConnection();
@@ -4840,7 +4791,7 @@
                 return $c;
             }
 
-            function get_first_purchase_invoice_header() {
+        function get_first_purchase_invoice_header() {
                 $con = new dbconnection();
                 $sql = "select purchase_invoice_header.purchase_invoice_header_id from purchase_invoice_header
                     order by purchase_invoice_header.purchase_invoice_header_id asc
@@ -4852,7 +4803,7 @@
                 return $first_rec;
             }
 
-            function get_last_purchase_invoice_header() {
+        function get_last_purchase_invoice_header() {
                 $con = new dbconnection();
                 $sql = "select purchase_invoice_header.purchase_invoice_header_id from purchase_invoice_header
                     order by purchase_invoice_header.purchase_invoice_header_id desc
@@ -4864,7 +4815,7 @@
                 return $first_rec;
             }
 
-            function list_purchase_invoice_line($min) {
+        function list_purchase_invoice_line($min) {
                 $database = new dbconnection();
                 $db = $database->openConnection();
                 $sql = "select  purchase_invoice_line.purchase_invoice_line_id,  purchase_invoice_line.entry_date,  purchase_invoice_line.User,  purchase_invoice_line.quantity,  purchase_invoice_line.unit_cost,  purchase_invoice_line.amount,  purchase_invoice_line.purchase_order,  purchase_invoice_line.activity,  purchase_invoice_line.acc_debit,  purchase_invoice_line.supplier,    purchase_invoice_line.tax_inclusive,p_budget_items.item_name as item, user.Firstname,  user.Lastname "
@@ -4932,12 +4883,10 @@
                         </td>
                         <?php if (isset($_SESSION['shall_delete'])) { ?>
                             <td>
-                                <a href="#" class="purchase_invoice_line_delete_link" style="color: #000080;" data-id_delete="purchase_invoice_line_id"  data-table="
-                                   <?php echo $row['purchase_invoice_line_id']; ?>">Delete</a>
+                                <a href="#" class="purchase_invoice_line_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['purchase_invoice_line_id']; ?>"  data-table="purchase_invoice_line">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="purchase_invoice_line_update_link" style="color: #000080;" value="
-                                   <?php echo $row['purchase_invoice_line_id']; ?>">Update</a>
+                                <a href="#" class="purchase_invoice_line_update_link" style="color: #000080;" data-table_id="<?php echo $row['purchase_invoice_line_id']; ?>" data-table="purchase_invoice_line">Update</a>
                             </td><?php } ?></tr>
                     <?php
                     $pages += 1;
@@ -4946,7 +4895,7 @@
                 <?php
             }
 
-            function list_trial_balance() {
+        function list_trial_balance() {
                 $database = new dbconnection();
                 $db = $database->openConnection();
                 $sql = "SELECT journal_entry_line_id, accountid,account.name as account_name, dr_cr, amount ,count(accountid) as n ,journal_entry_line.entry_date
@@ -5204,12 +5153,10 @@
 
 
                         <td>
-                            <a href="#" class="purchase_order_header_delete_link" style="color: #000080;" value="
-                               <?php echo $row['purchase_order_header_id']; ?>">Delete</a>
+                            <a href="#" class="purchase_order_header_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['purchase_order_header_id']; ?>" data-table="purchase_order_header">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="purchase_order_header_update_link" style="color: #000080;" value="
-                               <?php echo $row['purchase_order_header_id']; ?>">Update</a>
+                            <a href="#" class="purchase_order_header_update_link" style="color: #000080;" data-tabe_id="<?php echo $row['purchase_order_header_id']; ?>" data-table="purchase_order_header">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -5477,12 +5424,10 @@
                             <!--<td>  <a href="#" class="data_details_link" style="color: #000080;" data-who="DF"  data-table="purchase_order"    data-id="<?php echo $row['main_request_id']; ?>">View</a>   </td>-->  
                             <?php if (isset($_SESSION['shall_delete'])) { ?>
                                 <td>
-                                    <a href="#" class="purchase_order_line_delete_link" style="color: #000080;" data-id_delete="purchase_order_line_id"  data-table="
-                                       <?php echo $row['purchase_order_line_id']; ?>">Delete</a>
+                                    <a href="#" class="purchase_order_line_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['purchase_order_line_id']; ?>"  data-table="purchase_order_line">Delete</a>
                                 </td>
                                 <td>
-                                    <a href="#" class="purchase_order_line_update_link" style="color: #000080;" value="
-                                       <?php echo $row['purchase_order_line_id']; ?>">Update</a>
+                                    <a href="#" class="purchase_order_line_update_link" style="color: #000080;" data-tabe_id="<?php echo $row['purchase_order_line_id']; ?>" data-table="purchase_order_line">Update</a>
                                 </td><?php
                             }
                             $this->get_data_status($row['status'], $_SESSION['cat'], 'purchase_order_view_link', 'purchase_order', $row['main_request_id']);
@@ -5654,12 +5599,10 @@
 
 
                         <td>
-                            <a href="#" class="purchase_receit_header_delete_link" style="color: #000080;" value="
-                               <?php echo $row['purchase_receit_header_id']; ?>">Delete</a>
+                            <a href="#" class="purchase_receit_header_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['purchase_receit_header_id']; ?>" data-table="purchase_receit_header">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="purchase_receit_header_update_link" style="color: #000080;" value="
-                               <?php echo $row['purchase_receit_header_id']; ?>">Update</a>
+                            <a href="#" class="purchase_receit_header_update_link" style="color: #000080;" data-table_id="<?php echo $row['purchase_receit_header_id']; ?>" data-table="purchase_receit_header">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -5794,12 +5737,10 @@
 
                         <?php if (isset($_SESSION['shall_delete'])) { ?>
                             <td>
-                                <a href="#" class="purchase_receit_line_delete_link" style="color: #000080;" data-id_delete="purchase_receit_line_id"  data-table="
-                                   <?php echo $row['purchase_receit_line_id']; ?>">Delete</a>
+                                <a href="#" class="purchase_receit_line_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['purchase_receit_line_id']; ?>"  data-table="purchase_receit_line">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="purchase_receit_line_update_link" style="color: #000080;" value="
-                                   <?php echo $row['purchase_receit_line_id']; ?>">Update</a>
+                                <a href="#" class="purchase_receit_line_update_link" style="color: #000080;" data-table_id="<?php echo $row['purchase_receit_line_id']; ?>" data-table="purchase_receit_line">Update</a>
                             </td><?php } ?></tr>
                     <?php
                     $pages += 1;
@@ -6004,12 +5945,10 @@
 
 
                         <td>
-                            <a href="#" class="Inventory_control_journal_delete_link" style="color: #000080;" value="
-                               <?php echo $row['Inventory_control_journal_id']; ?>">Delete</a>
+                            <a href="#" class="Inventory_control_journal_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['Inventory_control_journal_id']; ?>" data-table="Inventory_control_journal">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="Inventory_control_journal_update_link" style="color: #000080;" value="
-                               <?php echo $row['Inventory_control_journal_id']; ?>">Update</a>
+                            <a href="#" class="Inventory_control_journal_update_link" style="color: #000080;" data-table_id="<?php echo $row['Inventory_control_journal_id']; ?>" data-table="Inventory_control_journal">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -6619,8 +6558,8 @@
             $database = new dbconnection();
             $db = $database->openConnection();
             $sql = "select account.account_id, account.name from account"
-                    . " join account_type on account_type.account_type_id = account.acc_type
-                    where account_type.name = 'accounts Receivable'";
+                    . " join account_class on account_class.account_class_id = account.acc_class
+                    where account_class.name = 'accounts Receivable'";
             ?>
             <select class="textbox cbo_acc_rec_accid"><option></option>
                 <?php
@@ -7047,13 +6986,10 @@
                         </td>
 
                         <td>
-                            <a href="#" class="p_project_delete_link" style="color: #000080;" data-id_delete="p_project_id"  data-table="
-                            <?php echo $row['p_project_id'];
-                            ?>">Delete</a>
+                            <a href="#" class="p_project_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['p_project_id'];?>"  data-table="p_project">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="p_project_update_link" style="color: #000080;" value="
-                               <?php echo $row['p_project_id']; ?>">Update</a>
+                            <a href="#" class="p_project_update_link" style="color: #000080;" data-table_id="<?php echo $row['p_project_id']; ?>" data-table="p_project">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -7150,12 +7086,10 @@
 
 
                         <td>
-                            <a href="#" class="p_roles_delete_link" style="color: #000080;" data-id_delete="p_roles_id"  data-table="
-                               <?php echo $row['p_roles_id']; ?>">Delete</a>
+                            <a href="#" class="p_roles_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['p_roles_id']; ?>"  data-table="p_roles">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="p_roles_update_link" style="color: #000080;" value="
-                               <?php echo $row['p_roles_id']; ?>">Update</a>
+                            <a href="#" class="p_roles_update_link" style="color: #000080;" data-table_id="<?php echo $row['p_roles_id']; ?>" data-table="p_roles">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -7216,12 +7150,10 @@
 
 
                         <td>
-                            <a href="#" class="role_delete_link" style="color: #000080;" data-id_delete="role_id"  data-table="
-                               <?php echo $row['role_id']; ?>">Delete</a>
+                            <a href="#" class="role_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['role_id']; ?>"  data-table="role">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="role_update_link" style="color: #000080;" value="
-                               <?php echo $row['role_id']; ?>">Update</a>
+                            <a href="#" class="role_update_link" style="color: #000080;" data-table_id="<?php echo $row['role_id']; ?>" data-table="role">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -7274,11 +7206,10 @@
 
 
                         <td>
-                            <a href="#" class="staff_positions_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['staff_positions_id']; ?>"  data-table="staff_positions_id">Delete</a>
+                            <a href="#" class="staff_positions_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['staff_positions_id']; ?>"  data-table="staff_positions">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="staff_positions_update_link" style="color: #000080;" value="
-                               <?php echo $row['staff_positions_id']; ?>">Update</a>
+                            <a href="#" class="staff_positions_update_link" style="color: #000080;" data-table_id="<?php echo $row['staff_positions_id']; ?>" data-table="staff_positions">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -7415,7 +7346,7 @@
                                     <a href="#" class="delete_link" style="color: #000080;"               data-id_delete="<?php echo $row['p_budget_prep_id']; ?>"  data-table="p_budget_prep">Delete</a>
                                 </td>
                                 <td>
-                                    <a href="#" class="p_budget_prep_update_link" style="color: #000080;" data-id_delete="<?php echo $row['p_budget_prep_id']; ?>"  data-table="p_budget_prep">Update</a>
+                                    <a href="#" class="p_budget_prep_update_link" style="color: #000080;" data-table_id="<?php echo $row['p_budget_prep_id']; ?>"  data-table="p_budget_prep">Update</a>
                                 </td><?php } ?>
                         </tr>
                         <?php
@@ -7715,12 +7646,10 @@
                         </td>
                         <?php if (isset($_SESSION['shall_delete'])) { ?>
                             <td>
-                                <a href="#" class="payment_voucher_delete_link" style="color: #000080;" data-id_delete="payment_voucher_id"  data-table="
-                                   <?php echo $row['payment_voucher_id']; ?>">Delete</a>
+                                <a href="#" class="payment_voucher_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['payment_voucher_id']; ?>"  data-table="payment_voucher">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="payment_voucher_update_link" style="color: #000080;" value="
-                                   <?php echo $row['payment_voucher_id']; ?>">Update</a>
+                                <a href="#" class="payment_voucher_update_link" style="color: #000080;" data-table_id="<?php echo $row['payment_voucher_id']; ?>" data-table="payment_voucher">Update</a>
                             </td><?php } ?></tr>
                     <?php
                     $pages += 1;
@@ -7778,12 +7707,10 @@
 
 
                         <td>
-                            <a href="#" class="cheque_delete_link" style="color: #000080;" data-id_delete="cheque_id"  data-table="
-                               <?php echo $row['cheque_id']; ?>">Delete</a>
+                            <a href="#" class="cheque_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['cheque_id']; ?>"  data-table="cheque">Delete</a>
                         </td>
                         <td>
-                            <a href="#" class="cheque_update_link" style="color: #000080;" value="
-                               <?php echo $row['cheque_id']; ?>">Update</a>
+                            <a href="#" class="cheque_update_link" style="color: #000080;" data-table_id="<?php echo $row['cheque_id']; ?>" data-table="cheque">Update</a>
                         </td></tr>
                     <?php
                     $pages += 1;
@@ -7959,12 +7886,10 @@
                             <?php echo $this->_e($row['valued']); ?>
                         </td>
                         <?php if (isset($_SESSION['shall_delete'])) { ?><td>
-                                <a href="#" class="tax_calculations_delete_link" style="color: #000080;" data-id_delete="tax_calculations_id"  data-table="
-                                   <?php echo $row['tax_calculations_id']; ?>">Delete</a>
+                                <a href="#" class="tax_calculations_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['tax_calculations_id']; ?>"  data-table="tax_calculations_id">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="tax_calculations_update_link" style="color: #000080;" value="
-                                   <?php echo $row['tax_calculations_id']; ?>">Update</a>
+                                <a href="#" class="tax_calculations_update_link" style="color: #000080;" data-table_id="<?php echo $row['tax_calculations_id']; ?>" data-table="tax_calculations">Update</a>
                             </td><?php } ?></tr>
                     <?php
                     $pages += 1;
@@ -8188,8 +8113,7 @@
                                 <a href="#" class="vat_calculation_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['vat_calculation_id']; ?>"  data-table="vat_calculation_id">Delete</a>
                             </td>
                             <td>
-                                <a href="#" class="vat_calculation_update_link" style="color: #000080;" value="
-                                   <?php echo $row['vat_calculation_id']; ?>">Update</a>
+                                <a href="#" class="vat_calculation_update_link" style="color: #000080;" data-table_id="<?php echo $row['vat_calculation_id']; ?>" data-table="vat_calculation_id">Update</a>
                             </td><?php } ?></tr>
                     <?php
                     $pages += 1;

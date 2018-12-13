@@ -3522,12 +3522,10 @@
 
 
                                                 <td>
-                                                    <a href="#" class="reconcilition_delete_link" style="color: #000080;" data-id_delete="reconcilition_id"  data-table="
-                                                       <?php echo $row['reconcilition_id']; ?>">Delete</a>
+                                                    <a href="#" class="reconcilition_delete_link" style="color: #000080;" data-id_delete="<?php echo $row['reconcilition_id']; ?>"  data-table="reconcilition">Delete</a>
                                                 </td>
                                                 <td>
-                                                    <a href="#" class="reconcilition_update_link" style="color: #000080;" value="
-                                                       <?php echo $row['reconcilition_id']; ?>">Update</a>
+                                                    <a href="#" class="reconcilition_update_link" style="color: #000080;" data-table_id="<?php echo $row['reconcilition_id']; ?>" data-table="reconcilition">Update</a>
                                                 </td></tr>
                                             <?php
                                             $pages += 1;
