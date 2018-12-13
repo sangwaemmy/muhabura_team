@@ -323,6 +323,20 @@
                 echo 'Error .. ' . $e;
             }
         }
+        
+        function new_reconcilition($entry_date, $User, $transaction, $amount_due, $amount_done, $remaining_amount, $comments) {
+            try {
+                require_once('../web_db/connection.php');
+                $database = new dbconnection();
+                $db = $database->openConnection();
+                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stm = $db->prepare("insert into reconciliation values(:reconcilition_id, :entry_date, :user, :transaction, :amount_due, :amount_done, :remaining_amount, :comments)");
+                $stm->execute(array(':reconcilition_id' => 0, ':entry_date' => $entry_date, ':user' => $User, ':transaction' => $transaction, ':amount_due' => $amount_due, ':amount_done' => $amount_done, ':remaining_amount' => $remaining_amount, ':comments' => $comments
+                ));
+                } catch (PDOException $e) {
+            echo 'Error .. ' . $e;
+            }
+            }
 
         function new_vendor_payment($vendor, $gen_ledger_header, $pur_invoice_header, $number, $date, $amount) {
             try {
